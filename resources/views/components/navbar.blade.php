@@ -1,10 +1,10 @@
 {{-- Navbar Background --}}
-<nav class="relative drop-shadow-md bg-polar0">
+<nav class="fixed top-0 left-0 right-0 h-14 drop-shadow-md bg-polar0 z-10">
     {{-- Navbar Container --}}
-    <div class="container px-4 py-2 mx-auto flex justify-between items-center">
+    <div class="container h-full px-4 py-2 mx-auto flex justify-between items-center">
         {{-- Hamburger Menu Button --}}
         <div class="md:hidden">
-            <button id="btn-burger" class="block hamburger md:hidden focus:outline-none">
+            <button id="btn-burger" class="block hamburger md:hidden">
                 <span class="hamburger-top"></span>
                 <span class="hamburger-middle"></span>
                 <span class="hamburger-bottom"></span>
@@ -21,25 +21,26 @@
             {{-- Navigation (Desktop) --}}
             <div class="hidden md:flex items-center">
                 <a href=""
-                    class="opacity-70 px-4 py-2 rounded-lg font-medium transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                    class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Jelajahi
                 </a>
                 <a href=""
-                    class="opacity-70 px-4 py-2 rounded-lg font-medium transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                    class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Diikuti
                 </a>
                 <a href=""
-                    class="opacity-70 px-4 py-2 rounded-lg font-medium transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                    class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Kategori
                 </a>
 
                 {{-- Search Button --}}
-                <div class="hidden ml-4 md:flex md:items-center lg:hidden">
+                <div class="hidden md:flex md:items-center lg:hidden">
                     <button id="btn-search"
-                        class="opacity-70 font-medium transition hover:opacity-100 hover:text-frost1">
+                        class="opacity-70 px-4 py-2 font-medium rounded-lg transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                        title="Pencarian">
                         <span class="bi-search"></span>
                     </button>
                 </div>
@@ -50,7 +51,7 @@
                         <span class="bi-search text-polar1"></span>
                     </div>
                     <input type="search"
-                        class="block bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 outline-none rounded-lg transition hover:opacity-100 focus:opacity-100"
+                        class="block bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg transition hover:opacity-100 focus:opacity-100"
                         placeholder="Cari karya..." name="q">
                 </form>
             </div>
@@ -61,7 +62,7 @@
             {{-- Profile Picture --}}
             <div class="relative">
                 <button id="btn-profile"
-                    class="relative flex items-center w-8 h-8 aspect-square rounded-full outline-none ring-snow2 focus:ring-2">
+                    class="relative flex items-center w-8 h-8 aspect-square rounded-full ring-snow2 hover:ring-2 focus:ring-2">
                     <img src="{{ asset('img/users/user-default.jpg') }}" alt=""
                         class="absolute object-cover rounded-full">
                 </button>
@@ -81,35 +82,35 @@
 
                             {{-- Menu --}}
                             <a href=""
-                                class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                                class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                                 tabindex="0">
                                 Profil
                             </a>
                             <a href=""
-                                class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                                class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                                 tabindex="0">
                                 Edit Profil
                             </a>
                             <a href=""
-                                class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                                class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                                 tabindex="0">
                                 Karya Disukai
                             </a>
                             <hr class="my-2">
                             <a href=""
-                                class="opacity-70 px-4 py-2 font-medium transition outline-none hover:opacity-100 hover:bg-aurora0 focus:opacity-100 focus:bg-aurora0"
+                                class="opacity-70 px-4 py-2 font-medium transition hover:opacity-100 hover:bg-aurora0 focus:opacity-100 focus:bg-aurora0"
                                 tabindex="0">
                                 Keluar
                             </a>
                         @else
                             {{-- Apabila user belum login --}}
                             <a href=""
-                                class="px-4 py-2 font-medium whitespace-nowrap transition outline-none bg-frost3 hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                                class="px-4 py-2 font-medium whitespace-nowrap transition bg-frost3 hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                                 tabindex="0">
                                 Registrasi
                             </a>
                             <a href=""
-                                class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                                class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                                 tabindex="0">
                                 Login
                             </a>
@@ -130,13 +131,13 @@
 
     {{-- Search Menu (Large) --}}
     <div class="hidden md:block lg:hidden">
-        <div id="search-bar-large" class="flex hidden p-4 origin-top scale-y-0 transition-transform">
+        <div id="search-bar-large" class="flex hidden p-4 bg-polar0 origin-top scale-y-0 transition-transform">
             <form action="/" method="GET" class="relative w-full">
                 <div class="pointer-events-none absolute z-10 inset-y-0 left-0 flex items-center pl-2 transition">
                     <span class="bi-search text-polar1"></span>
                 </div>
                 <input type="search"
-                    class="block w-full bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 outline-none rounded-lg transition hover:opacity-100 focus:opacity-100"
+                    class="block w-full bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg transition hover:opacity-100 focus:opacity-100"
                     placeholder="Cari karya..." name="q">
             </form>
         </div>
@@ -145,7 +146,7 @@
     {{-- Profile Menu (Mobile) --}}
     <div class="md:hidden">
         <div
-            class="profile-menu flex hidden scale-y-0 absolute drop-shadow-md bg-polar0 w-full py-4 flex-col items-center origin-top transition-transform">
+            class="profile-menu flex hidden scale-y-0 absolute drop-shadow-md bg-polar0 w-full max-h-almostscreen py-4 flex-col overflow-y-auto items-center origin-top transition-transform">
             @if (Auth::user())
                 {{-- Apabila user telah login --}}
                 {{-- Username --}}
@@ -154,40 +155,40 @@
                 </p>
                 {{-- Profile Navigation --}}
                 <a href=""
-                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     <i class="bi-plus-lg mr-2"></i>Buat Post
                 </a>
                 <a href=""
-                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Profil
                 </a>
                 <a href=""
-                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Edit Profil
                 </a>
                 <a href=""
-                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Karya Disukai
                 </a>
                 <hr class="my-2 w-full">
                 <a href=""
-                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition outline-none hover:opacity-100 hover:bg-aurora0 focus:opacity-100 focus:bg-aurora0"
+                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:bg-aurora0 focus:opacity-100 focus:bg-aurora0"
                     tabindex="0">
                     Keluar
                 </a>
             @else
                 {{-- Apabila user belum login --}}
                 <a href=""
-                    class="w-full py-4 font-medium text-center text-xl transition outline-none bg-frost3 hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                    class="w-full py-4 font-medium text-center text-xl transition bg-frost3 hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Registrasi
                 </a>
                 <a href=""
-                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Login
                 </a>
@@ -198,31 +199,31 @@
     {{-- Mobile Menu --}}
     <div class="md:hidden">
         <div id="burger-menu"
-            class="flex hidden absolute drop-shadow-md bg-polar0 w-full py-4 flex-col items-center origin-top scale-y-0 transition-transform">
+            class="flex hidden absolute drop-shadow-md bg-polar0 w-full max-h-almostscreen py-4 flex-col items-center origin-top scale-y-0 overflow-y-auto transition-transform">
             {{-- Search Bar (Mobile) --}}
             <form action="/" method="GET" class="relative w-full px-4 mb-4">
                 <div class="pointer-events-none absolute z-10 inset-y-0 left-0 flex items-center pl-6 transition">
                     <span class="bi-search text-polar1"></span>
                 </div>
                 <input type="search"
-                    class="block w-full bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 outline-none rounded-lg transition hover:opacity-100 focus:opacity-100"
+                    class="block w-full bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg transition hover:opacity-100 focus:opacity-100"
                     placeholder="Cari karya..." name="q">
             </form>
             {{-- Mobile Navigation --}}
             <a href=""
-                class="opacity-70 w-full py-4 font-medium text-center text-xl transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                 tabindex="0">
                 Jelajahi
             </a>
             @if (Auth::user())
                 <a href=""
-                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                    class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Diikuti
                 </a>
             @endif
             <a href=""
-                class="opacity-70 w-full py-4 font-medium text-center text-xl transition outline-none hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                 tabindex="0">
                 Kategori
             </a>
