@@ -51,7 +51,7 @@
                         <span class="bi-search text-polar1"></span>
                     </div>
                     <input type="search"
-                        class="block bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg transition hover:opacity-100 focus:opacity-100"
+                        class="block bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg outline-none transition hover:opacity-100 focus:opacity-100"
                         placeholder="Cari karya..." name="q">
                 </form>
             </div>
@@ -137,7 +137,7 @@
                     <span class="bi-search text-polar1"></span>
                 </div>
                 <input type="search"
-                    class="block w-full bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg transition hover:opacity-100 focus:opacity-100"
+                    class="block w-full bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg outline-none transition hover:opacity-100 focus:opacity-100"
                     placeholder="Cari karya..." name="q">
             </form>
         </div>
@@ -206,7 +206,7 @@
                     <span class="bi-search text-polar1"></span>
                 </div>
                 <input type="search"
-                    class="block w-full bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg transition hover:opacity-100 focus:opacity-100"
+                    class="block w-full bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg outline-none transition hover:opacity-100 focus:opacity-100"
                     placeholder="Cari karya..." name="q">
             </form>
             {{-- Mobile Navigation --}}

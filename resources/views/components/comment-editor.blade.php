@@ -11,7 +11,7 @@
         <textarea name="content" rows="4" placeholder="Tulis komentar..."
             class="opacity-70 resize-none p-3 rounded-lg w-full outline-none text-polar0 bg-snow transition-opacity hover:opacity-100 focus:opacity-100"></textarea>
         <button type="submit" tabindex="0"
-            class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-gray-800 focus:bg-gray-800">
+            class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2">
             Kirim
         </button>
     </form>

@@ -23,9 +23,9 @@
         </div>
 
         {{-- Creation Likes and Comment Counters --}}
-        <div class="group flex justify-end flex-nowrap space-x-2 transition-colors {{ $likesAndComments ?? '' }}">
-            <i class="bi bi-chat-dots group-hover:text-aurora2"></i><span class="group-hover:text-aurora2">80</span>
-            <i class="bi bi-heart group-hover:text-aurora0"></i><span class="group-hover:text-aurora0">20</span>
+        <div class="group flex justify-end flex-nowrap space-x-2 {{ $likesAndComments ?? '' }}">
+            <i class="bi bi-chat-dots group-hover:text-aurora2"></i><span class="transition-colors group-hover:text-aurora2">80</span>
+            <i class="bi bi-heart group-hover:text-aurora0"></i><span class="transition-colors group-hover:text-aurora0">20</span>
         </div>
     </div>
 </div>

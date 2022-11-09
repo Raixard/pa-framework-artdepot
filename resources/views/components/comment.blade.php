@@ -39,6 +39,6 @@
         </form>
 
         {{-- Reply Button --}}
-        <button class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-gray-800 focus:bg-gray-800" tabindex="0">Balas</button>
+        <button class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2" tabindex="0">Balas</button>
     </div>
 </div>
