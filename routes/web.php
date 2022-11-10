@@ -32,10 +32,10 @@ Route::get('/home-admin', function () {
 });
 
 Route::get('/followed', function () {
-    $followedId = Follow::where('follower_id', Auth::user()->id)->pluck('id');
+    $followedId = Follow::where('follower_id', Auth::user()->id)->pluck('following_id');
 
     return view('home', [
-        'creations' => Creation::whereIn('id', $followedId)->get(),
+        'creations' => Creation::whereIn('user_id', $followedId)->get()->sortByDesc('id'),
     ]);
 })->name('creationFollowed')->middleware('auth');
 

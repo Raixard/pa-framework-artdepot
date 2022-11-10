@@ -14,11 +14,13 @@ class CreationController extends Controller
     {
         Creation::findOrFail($id);
         $posterUserId = Creation::where('id', $id)->first()->user->id;
+        $isFollowingPoster = FollowController::isFollowing($posterUserId);
 
         return view('creations.show', [
             'creation' => Creation::where('id', $id)->first(),
             'otherByThisUser' => Creation::where('user_id', $posterUserId)
                 ->where('id', '!=', $id)->inRandomOrder()->limit(6)->get(),
+            'isFollowingPoster' => $isFollowingPoster,
         ]);
     }
 

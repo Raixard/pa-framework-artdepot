@@ -55,7 +55,7 @@
                             @csrf
                             @method('delete')
                             <button type="submit"
-                                class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2"
+                                class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-aurora0 focus:bg-aurora0"
                                 tabindex="0">
                                 <i class="bi bi-heart-fill mr-2"></i>
                                 Disukai
@@ -106,13 +106,26 @@
 
                         @if (Auth::user()->id != $creation->user_id)
                             {{-- Follow Button --}}
-                            <form action="{{ route('followStore', $creation->user->id) }}" method="POST">
-                                <button
-                                    class="bg-frost3 py-1 px-3 rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-frost2 focus:bg-frost2"
-                                    tabindex="0">
-                                    <i class="bi-person-plus mr-2"></i>Ikuti
-                                </button>
-                            </form>
+                            @if ($isFollowingPoster)
+                                <form action="{{ route('followDestroy', $creation->user_id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit"
+                                        class="py-1 px-3 border rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-aurora0 focus:bg-aurora0"
+                                        tabindex="0">
+                                        <i class="bi-person-dash mr-2"></i>Diikuti
+                                    </button>
+                                </form>
+                            @else
+                                <form action="{{ route('followStore', $creation->user_id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit"
+                                        class="bg-frost3 py-1 px-3 rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-frost2 focus:bg-frost2"
+                                        tabindex="0">
+                                        <i class="bi-person-plus mr-2"></i>Ikuti
+                                    </button>
+                                </form>
+                            @endif
                         @endif
                     </div>
                 </div>

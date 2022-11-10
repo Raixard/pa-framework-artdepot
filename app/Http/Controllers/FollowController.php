@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Auth;
 
 class FollowController extends Controller
 {
+    static public function isFollowing($id)
+    {
+        if (
+            Follow::where('follower_id', Auth::user()->id)
+            ->where('following_id', $id)->count() > 0
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
     // Like a creation
     public function store($id)
     {
@@ -16,18 +28,18 @@ class FollowController extends Controller
             'following_id' => $id,
         ]);
 
-        return redirect('/');
+        return redirect()->back();
     }
 
     // Remove a creation
     public function destroy($id)
     {
-        $like = Follow::where('follower_id', Auth::user()->id)
+        $follow = Follow::where('follower_id', Auth::user()->id)
             ->where('following_id', $id)
             ->firstOrFail();
 
-        $like->delete();
+        $follow->delete();
 
-        return redirect('/');
+        return redirect()->back();
     }
 }

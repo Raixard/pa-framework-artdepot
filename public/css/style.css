@@ -901,6 +901,14 @@ video {
   border-radius: 9999px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
+.border {
+  border-width: 1px;
+}
+
 .bg-polar2 {
   --tw-bg-opacity: 1;
   background-color: rgb(67 76 94 / var(--tw-bg-opacity));
