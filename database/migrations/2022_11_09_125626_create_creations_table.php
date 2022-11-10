@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('creations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('image_url')->default('user.png');
+            $table->string('image_url')->default('user-default.jpg');
             $table->string('title');
-            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->text('description');
             $table->string('keywords');
             $table->timestamps();

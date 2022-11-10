@@ -17,4 +17,10 @@ class Like extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $table = 'likes';
+    protected $fillable = [
+        'user_id',
+        'creation_id',
+    ];
 }

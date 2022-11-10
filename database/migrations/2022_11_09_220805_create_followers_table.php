@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('follows', function (Blueprint $table) {
             $table->id();
-            $table->integer('follower_id')->unsigned();
-            $table->integer('following_id')->unsigned();
+            $table->unsignedBigInteger('follower_id');
+            $table->unsignedBigInteger('following_id');
+            $table->foreign('follower_id')->references('id')->on('users');
+            $table->foreign('following_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

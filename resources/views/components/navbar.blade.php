@@ -17,44 +17,26 @@
             <a href="{{ url('/') }}" class="font-bold text-xl select-none md:mr-8">
                 ArtDepot
             </a>
-            
+
             {{-- Navigation (Desktop) --}}
             <div class="hidden md:flex items-center">
-                @php
-                    $role = Session::get('role');
-                    if($role == 'user'):
-                @endphp
-                <a href=""
+                <a href="{{ url('/') }}"
                     class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Jelajahi
                 </a>
-                <a href=""
-                    class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
-                    tabindex="0">
-                    Diikuti
-                </a>
+                @if (Auth::user())
+                    <a href=""
+                        class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                        tabindex="0">
+                        Diikuti
+                    </a>
+                @endif
                 <a href=""
                     class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Kategori
                 </a>
-                @php
-                    else:
-                @endphp
-                <a href=""
-                class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
-                tabindex="0">
-                Akun
-            </a>
-            <a href=""
-                class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
-                tabindex="0">
-                Kategori
-            </a>
-            @php
-                endif;
-            @endphp
 
                 {{-- Search Button --}}
                 <div class="hidden md:flex md:items-center lg:hidden">
@@ -83,8 +65,8 @@
             <div class="relative">
                 <button id="btn-profile"
                     class="relative flex items-center w-8 h-8 aspect-square rounded-full ring-snow2 hover:ring-2 focus:ring-2">
-                    <img src="{{ asset('img/users/user-default.jpg') }}" alt=""
-                        class="absolute object-cover rounded-full">
+                    <img src="{{ asset('img/users/' . (Auth::user() ? Auth::user()->profile_image : 'user-default.jpg')) }}"
+                        alt="" class="absolute object-cover rounded-full">
                 </button>
 
                 {{-- Profile Menu (Desktop) --}}
@@ -101,7 +83,7 @@
                             </div>
 
                             {{-- Menu --}}
-                            <a href=""
+                            <a href="{{ route('userShow', Auth::user()->username) }}"
                                 class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                                 tabindex="0">
                                 Profil
@@ -141,7 +123,7 @@
 
             {{-- Create Post Button (Desktop) --}}
             @if (Auth::user())
-                <a href=""
+                <a href="{{ route('creationCreate') }}"
                     class="hidden bg-frost3 px-3 py-2 rounded-lg font-semibold transition-colors md:block hover:bg-frost2">
                     <i class="bi-plus-lg mr-2"></i>Buat Post
                 </a>
@@ -174,12 +156,12 @@
                     {{ Auth::user()->username }}
                 </p>
                 {{-- Profile Navigation --}}
-                <a href=""
+                <a href="{{ route('creationCreate') }}"
                     class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     <i class="bi-plus-lg mr-2"></i>Buat Post
                 </a>
-                <a href=""
+                <a href="{{ route('userShow', Auth::user()->username) }}"
                     class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Profil

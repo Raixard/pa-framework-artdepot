@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('creation_id')->constrained('creations')->cascadeOnDelete();
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }

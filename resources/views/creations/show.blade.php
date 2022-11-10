@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    ArtDepot
+    {{ $creation->title }} oleh {{ $creation->user->username }} | ArtDepot
 @endsection
 
 @section('content')
@@ -9,10 +9,67 @@
         <div class="mt-14"></div>
 
         {{-- Creation Image --}}
-        <div class="flex flex-col my-3">
+        <div class="flex flex-col space-y-3 my-3">
+            {{-- Creation Image --}}
             <div class="w-full max-w-full max-h-[100vh] flex justify-center">
-                <img src="https://picsum.photos/id/1/{{ rand(400, 1000) }}/{{ rand(400, 1000) }}" alt=""
-                    class="object-contain">
+                <img src="{{ asset('img/creations/' . $creation->image_url) }}"
+                    alt="{{ $creation->title }} oleh {{ $creation->user->username }}" class="object-contain">
+            </div>
+
+            {{-- Creation Action Buttons --}}
+            <div class="flex justify-center space-x-3">
+                @if (Auth::user())
+                    {{-- Edit Button --}}
+                    @if (Auth::user()->id == $creation->user_id)
+                        <a href="{{ route('creationEdit', $creation->id) }}"
+                            class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2">
+                            <i class="bi bi-pencil mr-2"></i>
+                            Perbarui
+                        </a>
+                        <form action="{{ route('creationDestroy', $creation->id) }}" method="POST"
+                            onsubmit="return confirm('Apakah kamu yakin ingin menghapus post ini? Post yang sudah dihapus tidak dapat dikembalikan lagi!')">
+                            @csrf
+                            @method('delete')
+                            <button type="submit"
+                                class="px-3 py-1 bg-aurora0 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2"
+                                tabindex="0">
+                                <i class="bi bi-trash mr-2"></i>
+                                Hapus
+                            </button>
+                        </form>
+                    @endif
+
+                    {{-- Like Button --}}
+                    @if ($creation->likes->where('user_id', Auth::user()->id)->count() < 1)
+                        <form action="{{ route('likeStore', $creation->id) }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2"
+                                tabindex="0">
+                                <i class="bi bi-heart mr-2"></i>
+                                Sukai
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('likeDestroy', $creation->id) }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit"
+                                class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2"
+                                tabindex="0">
+                                <i class="bi bi-heart-fill mr-2"></i>
+                                Disukai
+                            </button>
+                        </form>
+                    @endif
+                @endif
+
+                {{-- Download Button --}}
+                <a href="{{ asset('img/creations/' . $creation->image_url) }}"
+                    class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2" tabindex="0">
+                    <i class="bi bi-download mr-2"></i>
+                    Unduh
+                </a>
             </div>
         </div>
 
@@ -26,7 +83,7 @@
                 <div class="flex space-x-4 min-w-0">
                     {{-- Poster Profile Image --}}
                     <a href="" class="relative flex items-center w-12 h-12 aspect-square rounded-full outline-none">
-                        <img src="{{ asset('img/users/user-default.jpg') }}" alt=""
+                        <img src="{{ asset('img/users/' . $creation->user->profile_image) }}" alt=""
                             class="absolute object-cover rounded-full">
                     </a>
 
@@ -34,27 +91,29 @@
                     <div class="flex flex-col space-y-1">
                         {{-- Creation Title --}}
                         <h1 class="font-bold text-xl">
-                            Judul
+                            {{ $creation->title }}
                         </h1>
 
-                        {{-- Creation Username --}}
+                        {{-- Creation Creator Username --}}
                         <div>
                             <span>oleh </span>
-                            <a href=""
+                            <a href="{{ route('userShow', $creation->user->username) }}"
                                 class="font-medium truncate outline-none transition-colors hover:text-frost3 focus:text-frost3"
                                 tabindex="0">
-                                Jayatoyaburriwcawcwacadawdaw
+                                {{ $creation->user->username }}
                             </a>
                         </div>
 
-                        {{-- Follow Button --}}
-                        <form action="">
-                            <button
-                                class="bg-frost3 py-1 px-3 rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-frost2 focus:bg-frost2"
-                                tabindex="0">
-                                <i class="bi-person-plus mr-2"></i>Ikuti
-                            </button>
-                        </form>
+                        @if (Auth::user()->id != $creation->user_id)
+                            {{-- Follow Button --}}
+                            <form action="{{ route('followStore', $creation->user->id) }}" method="POST">
+                                <button
+                                    class="bg-frost3 py-1 px-3 rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-frost2 focus:bg-frost2"
+                                    tabindex="0">
+                                    <i class="bi-person-plus mr-2"></i>Ikuti
+                                </button>
+                            </form>
+                        @endif
                     </div>
                 </div>
 
@@ -62,24 +121,32 @@
                 <div class="flex flex-col text-snow2/70 italic">
                     <div>
                         <span>Dipublikasikan: </span>
-                        <span>12 hari yang lalu</span>
+                        <span class="cursor-help underline underline-offset-2 decoration-dotted"
+                            title="{{ $creation->created_at->setTimezone('Asia/Makassar') }}">
+                            {{ $creation->created_at->setTimezone('Asia/Makassar')->diffForHumans() }}
+                        </span>
                     </div>
 
-                    <div>
-                        <span>Diperbarui: </span>
-                        <span>11 hari yang lalu</span>
-                    </div>
+                    @if ($creation->created_at != $creation->updated_at)
+                        <div>
+                            <span>Diperbarui: </span>
+                            <span class="cursor-help underline underline-offset-2 decoration-dotted"
+                                title="{{ $creation->updated_at->setTimezone('Asia/Makassar') }}">
+                                {{ $creation->updated_at->setTimezone('Asia/Makassar')->diffForHumans() }}
+                            </span>
+                        </div>
+                    @endif
                 </div>
 
                 {{-- Like and Comment Counter --}}
                 <div class="flex space-x-4">
-                    <div><i class="bi bi-heart mr-2"></i>200 disukai</div>
-                    <div><i class="bi bi-chat-dots mr-2"></i>200 komentar</div>
+                    <div><i class="bi bi-heart mr-2"></i>{{ $creation->likes->count() }} disukai</div>
+                    <div><i class="bi bi-chat-dots mr-2"></i>{{ $creation->allComments->count() }} komentar</div>
                 </div>
 
                 {{-- Creation Keywords --}}
                 <div class="flex space-x-2">
-                    @foreach (explode(';', 'keren; mantap; sangat hebat; uwaw;;;') as $keyword)
+                    @foreach (explode(';', $creation->keywords) as $keyword)
                         @if (!empty($keyword))
                             <span
                                 class="px-3 py-1 bg-polar3/70 rounded-lg cursor-pointer transition-colors hover:bg-polar3">
@@ -91,41 +158,56 @@
 
                 {{-- Creation Description --}}
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto optio excepturi dolore! Omnis est
-                    aut odio nulla nam repellendus. Asperiores eos illo quae. Consequuntur quo atque ratione tempore
-                    sapiente totam.
+                    {!! nl2br(e($creation->description)) !!}
                 </p>
 
                 <hr>
 
                 {{-- Comments --}}
                 <div>
-                    <h3 class="font-bold mb-6">Komentar (8)</h3>
+                    <h3 class="font-bold mb-6">Komentar ({{ $creation->allComments->count() }})</h3>
                     @if (Auth::user())
                         @include('components.comment-editor')
                     @endif
                     <div class="mb-6"></div>
-                    <div class="flex flex-col space-y-3">
-                        @for ($i = 0; $i < 8; $i++)
-                            @include('components.comment', ['margin' => rand(0, 1) == 0])
-                        @endfor
-                    </div>
+                    @if ($creation->comments->count() > 0)
+                        <div class="flex flex-col space-y-3">
+                            @foreach ($creation->comments as $cmt)
+                                @include('components.comment', ['comment' => $cmt, 'margin' => false])
+                                @if (Auth::user())
+                                    @include('components.comment-editor', [
+                                        'comment_parent_id' => $cmt->id,
+                                    ])
+                                @endif
+                            @endforeach
+                        </div>
+                    @else
+                        <span class="py-4">Tidak ada komentar...</span>
+                    @endif
                 </div>
             </div>
 
             {{-- Other Creations --}}
             <div class="flex flex-col basis-1/4 space-y-6">
                 <h3 class="font-bold">Lainnya oleh pengguna ini</h3>
-                <div class="grid gap-x-3 gap-y-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-2">
-                    @for ($i = 0; $i < 6; $i++)
-                        @include('components.creation-card', [
-                            'creationPoster' => 'hidden',
-                            'likesAndComments' => 'hidden',
-                        ])
-                    @endfor
-                </div>
+                @if (count($otherByThisUser) > 0)
+                    <div class="grid gap-x-3 gap-y-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-2">
+                        @foreach ($otherByThisUser as $crt)
+                            @include('components.creation-card', [
+                                'creation' => $crt,
+                                'creationPoster' => 'hidden',
+                                'likesAndComments' => 'hidden',
+                            ])
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-snow2/70 italic">
+                        Pengguna ini tidak memiliki karya lain...
+                    </p>
+                @endif
             </div>
         </div>
 
     </div>
+    <script src="{{ asset('js/comments.js') }}"></script>
 @endsection
