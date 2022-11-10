@@ -64,7 +64,13 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($data)) {
-            return redirect('/');
+            $auth = Auth::user()->role;
+            if ($auth == 'User') {
+                return redirect('/')->with('role','user');
+            }else{
+                return redirect('home-admin')->with('role','admin');
+            }
+            
         } else {
             session()->flash('error', 'Email atau password salah!');
             return redirect()->route('login');

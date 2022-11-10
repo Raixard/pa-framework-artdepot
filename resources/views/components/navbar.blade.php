@@ -17,9 +17,13 @@
             <a href="{{ url('/') }}" class="font-bold text-xl select-none md:mr-8">
                 ArtDepot
             </a>
-
+            
             {{-- Navigation (Desktop) --}}
             <div class="hidden md:flex items-center">
+                @php
+                    $role = Session::get('role');
+                    if($role == 'user'):
+                @endphp
                 <a href=""
                     class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
@@ -35,6 +39,22 @@
                     tabindex="0">
                     Kategori
                 </a>
+                @php
+                    else:
+                @endphp
+                <a href=""
+                class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                tabindex="0">
+                Akun
+            </a>
+            <a href=""
+                class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                tabindex="0">
+                Kategori
+            </a>
+            @php
+                endif;
+            @endphp
 
                 {{-- Search Button --}}
                 <div class="hidden md:flex md:items-center lg:hidden">
