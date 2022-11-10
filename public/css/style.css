@@ -873,9 +873,9 @@ video {
   border-radius: 9999px;
 }
 
-.bg-polar1 {
+.bg-polar2 {
   --tw-bg-opacity: 1;
-  background-color: rgb(59 66 82 / var(--tw-bg-opacity));
+  background-color: rgb(67 76 94 / var(--tw-bg-opacity));
 }
 
 .bg-aurora0 {
@@ -886,6 +886,15 @@ video {
 .bg-frost3 {
   --tw-bg-opacity: 1;
   background-color: rgb(94 129 172 / var(--tw-bg-opacity));
+}
+
+.bg-aurora3\/40 {
+  background-color: rgb(163 190 140 / 0.4);
+}
+
+.bg-polar1 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 66 82 / var(--tw-bg-opacity));
 }
 
 .bg-polar0 {
@@ -900,28 +909,6 @@ video {
 
 .bg-polar3\/70 {
   background-color: rgb(76 86 106 / 0.7);
-}
-
-.bg-aurora3 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(163 190 140 / var(--tw-bg-opacity));
-}
-
-.bg-polar2 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(67 76 94 / var(--tw-bg-opacity));
-}
-
-.bg-aurora3\/50 {
-  background-color: rgb(163 190 140 / 0.5);
-}
-
-.bg-aurora3\/70 {
-  background-color: rgb(163 190 140 / 0.7);
-}
-
-.bg-aurora3\/40 {
-  background-color: rgb(163 190 140 / 0.4);
 }
 
 .bg-gradient-to-t {
@@ -1033,6 +1020,10 @@ video {
   padding-bottom: 1.5rem;
 }
 
+.pt-3 {
+  padding-top: 0.75rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1064,6 +1055,10 @@ video {
   font-weight: 600;
 }
 
+.font-light {
+  font-weight: 300;
+}
+
 .italic {
   font-style: italic;
 }
@@ -1073,9 +1068,9 @@ video {
   color: rgb(46 52 64 / var(--tw-text-opacity));
 }
 
-.text-frost2 {
+.text-frost1 {
   --tw-text-opacity: 1;
-  color: rgb(129 161 193 / var(--tw-text-opacity));
+  color: rgb(136 192 208 / var(--tw-text-opacity));
 }
 
 .text-snow2\/70 {
@@ -1090,16 +1085,6 @@ video {
 .text-polar1 {
   --tw-text-opacity: 1;
   color: rgb(59 66 82 / var(--tw-text-opacity));
-}
-
-.text-frost3 {
-  --tw-text-opacity: 1;
-  color: rgb(94 129 172 / var(--tw-text-opacity));
-}
-
-.text-frost1 {
-  --tw-text-opacity: 1;
-  color: rgb(136 192 208 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -1153,6 +1138,10 @@ video {
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+body {
+  font-family: 'K2D', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1219,9 +1208,17 @@ video {
   transform: rotate(-45deg) translateY(8px) translate(-8px);
 }
 
-.hover\:bg-frost1:hover {
+.hover\:bg-frost2:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(136 192 208 / var(--tw-bg-opacity));
+  background-color: rgb(129 161 193 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-frost3\/70:hover {
+  background-color: rgb(94 129 172 / 0.7);
+}
+
+.hover\:bg-aurora0\/70:hover {
+  background-color: rgb(191 97 106 / 0.7);
 }
 
 .hover\:bg-gray-800:hover {
@@ -1229,32 +1226,14 @@ video {
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-aurora0\/70:hover {
-  background-color: rgb(191 97 106 / 0.7);
-}
-
 .hover\:bg-aurora0:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(191 97 106 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-frost2:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(129 161 193 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-polar3:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(76 86 106 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-frost3:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(94 129 172 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-frost3\/70:hover {
-  background-color: rgb(94 129 172 / 0.7);
 }
 
 .hover\:text-frost3:hover {
@@ -1282,25 +1261,6 @@ video {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
-.focus\:bg-frost1:focus {
-  --tw-bg-opacity: 1;
-  background-color: rgb(136 192 208 / var(--tw-bg-opacity));
-}
-
-.focus\:bg-gray-800:focus {
-  --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
-
-.focus\:bg-aurora0\/70:focus {
-  background-color: rgb(191 97 106 / 0.7);
-}
-
-.focus\:bg-aurora0:focus {
-  --tw-bg-opacity: 1;
-  background-color: rgb(191 97 106 / var(--tw-bg-opacity));
-}
-
 .focus\:bg-frost2:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(129 161 193 / var(--tw-bg-opacity));
@@ -1308,6 +1268,20 @@ video {
 
 .focus\:bg-frost3\/70:focus {
   background-color: rgb(94 129 172 / 0.7);
+}
+
+.focus\:bg-aurora0\/70:focus {
+  background-color: rgb(191 97 106 / 0.7);
+}
+
+.focus\:bg-gray-800:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+
+.focus\:bg-aurora0:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(191 97 106 / var(--tw-bg-opacity));
 }
 
 .focus\:text-frost3:focus {

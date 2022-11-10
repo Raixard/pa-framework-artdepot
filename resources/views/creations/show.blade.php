@@ -101,7 +101,9 @@
                 {{-- Comments --}}
                 <div>
                     <h3 class="font-bold mb-6">Komentar (8)</h3>
-                    @include('components.comment-editor')
+                    @if (Auth::user())
+                        @include('components.comment-editor')
+                    @endif
                     <div class="mb-6"></div>
                     <div class="flex flex-col space-y-3">
                         @for ($i = 0; $i < 8; $i++)

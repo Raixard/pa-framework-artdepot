@@ -76,7 +76,7 @@
                             {{-- Username --}}
                             <div class="flex">
                                 <p class="pl-4 py-2 font-medium truncate min-w-0">
-                                    usernametestingtesting
+                                    {{ Auth::user()->username }}
                                 </p>
                             </div>
 
@@ -97,19 +97,19 @@
                                 Karya Disukai
                             </a>
                             <hr class="my-2">
-                            <a href=""
+                            <a href="{{ route('logout') }}"
                                 class="opacity-70 px-4 py-2 font-medium transition hover:opacity-100 hover:bg-aurora0 focus:opacity-100 focus:bg-aurora0"
                                 tabindex="0">
                                 Keluar
                             </a>
                         @else
                             {{-- Apabila user belum login --}}
-                            <a href=""
+                            <a href="{{ route('register') }}"
                                 class="px-4 py-2 font-medium whitespace-nowrap transition bg-frost3 hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                                 tabindex="0">
                                 Registrasi
                             </a>
-                            <a href=""
+                            <a href="{{ route('login') }}"
                                 class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                                 tabindex="0">
                                 Login
@@ -151,7 +151,7 @@
                 {{-- Apabila user telah login --}}
                 {{-- Username --}}
                 <p class="w-full py-4 font-medium text-center text-xl">
-                    Usernamedoank
+                    {{ Auth::user()->username }}
                 </p>
                 {{-- Profile Navigation --}}
                 <a href=""
@@ -175,19 +175,19 @@
                     Karya Disukai
                 </a>
                 <hr class="my-2 w-full">
-                <a href=""
+                <a href="{{ route('logout') }}"
                     class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:bg-aurora0 focus:opacity-100 focus:bg-aurora0"
                     tabindex="0">
                     Keluar
                 </a>
             @else
                 {{-- Apabila user belum login --}}
-                <a href=""
+                <a href="{{ route('register') }}"
                     class="w-full py-4 font-medium text-center text-xl transition bg-frost3 hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Registrasi
                 </a>
-                <a href=""
+                <a href="{{ route('login') }}"
                     class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Login

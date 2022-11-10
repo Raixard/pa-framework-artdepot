@@ -8,11 +8,11 @@
         </a>
 
         {{-- Comment Content --}}
-        <div class="flex flex-col w-full bg-polar1 py-3 px-6 rounded-lg">
+        <div class="flex flex-col w-full bg-polar1 pt-3 pb-6 px-6 rounded-lg">
             {{-- Commenter Username and Comment Date --}}
             <div class="flex flex-col mb-2 sm:flex-row sm:justify-between sm:items-center">
                 <a href=""
-                    class="font-medium truncate transition-colors hover:text-frost3 focus:text-frost3"
+                    class="font-bold truncate transition-colors hover:text-frost3 focus:text-frost3"
                     tabindex="0">
                     Jayatoyaburriwcawcwacadawdaw
                 </a>

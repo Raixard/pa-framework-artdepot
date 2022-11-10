@@ -9,23 +9,41 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    // Viewing login page
     public function loginView()
     {
         if (Auth::check()) {
             return redirect('/');
         } else {
-            return view('login');
+            return view('auths.login');
         }
     }
 
+    // Viewing registration page
+    public function registerView()
+    {
+        if (Auth::check()) {
+            return redirect('/');
+        } else {
+            return view('auths.register');
+        }
+    }
+
+    // Registration process
     public function actionRegister(Request $request)
     {
         if ($request->password == $request->confirm_password) {
+            $request->validate([
+                'username' => ['required', 'unique:users', 'min:4', 'max:20', 'distinct:ignore_case'],
+                'email' => ['required', 'unique:users'],
+                'password' => ['required', 'unique:users', 'min:8', 'max:64'],
+            ]);
+
             User::create([
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'profile_image' => 'https://via.placeholder.com/300x300.png/434C5E?text=' . $request->username,
+                'profile_image' => 'user-default.jpg',
             ]);
 
             session()->flash('success', 'Berhasil membuat akun! Silakan masuk menggunakan informasi yang sudah Anda daftarkan.');
@@ -36,6 +54,7 @@ class AuthController extends Controller
         }
     }
 
+    // Login process
     public function actionLogin(Request $request)
     {
         $data = [
@@ -51,6 +70,7 @@ class AuthController extends Controller
         }
     }
 
+    // Logout process
     public function actionLogout()
     {
         Auth::logout();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,10 +22,12 @@ Route::get('/show', function () {
     return view('creations.show');
 });
 
-Route::get('/login', function () {
-    return view('auths.login');
-});
 
-Route::get('/register', function () {
-    return view('auths.register');
+// Authentication
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/login', 'loginView')->name('login');
+    Route::post('/login-action', 'actionLogin')->name('actionLogin');
+    Route::get('/register', 'registerView')->name('register');
+    Route::post('/register-action', 'actionRegister')->name('actionRegister');
+    Route::get('/logout', 'actionLogout')->name('logout');
 });

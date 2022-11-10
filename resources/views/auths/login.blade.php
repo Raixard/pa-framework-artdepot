@@ -14,13 +14,22 @@
             {{-- Title --}}
             <h1 class="font-bold text-2xl">Login</h1>
 
-            {{-- Alert --}}
-            <div class="bg-aurora0 px-3 py-6 w-full rounded-lg">
-                <b>Yeah!</b> Sukses! Tapi boong yahahahahaha!!!
-            </div>
+            {{-- Error Alert --}}
+            @if (session('error'))
+                <div class="bg-aurora0 px-3 py-6 w-full rounded-lg">
+                    <b>Ups!</b> {{ session('error') }}
+                </div>
+            @endif
+
+            {{-- Success Alert --}}
+            @if (session('success'))
+                <div class="bg-aurora3/40 px-3 py-6 w-full rounded-lg">
+                    <b>Yeah!</b> {{ session('success') }}
+                </div>
+            @endif
 
             {{-- Login Form --}}
-            <form action="" method="POST" class="w-full">
+            <form action="{{ route('actionLogin') }}" method="POST" class="w-full">
                 @csrf
                 {{-- Email Input --}}
                 <div class="flex flex-col w-full space-y-3 mb-6">
@@ -46,8 +55,9 @@
             {{-- Prompt to Register --}}
             <p class="w-full">
                 Belum punya akun?
-                <a href="{{ url('/register') }}"
-                    class="text-frost1 underline rounded-lg transition-colors hover:bg-frost3/70 focus:bg-frost3/70" tabindex="0">
+                <a href="{{ route('register') }}"
+                    class="text-frost1 underline rounded-lg transition-colors hover:bg-frost3/70 focus:bg-frost3/70"
+                    tabindex="0">
                     Registrasi sekarang.
                 </a>
             </p>
