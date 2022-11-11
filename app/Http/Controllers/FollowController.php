@@ -10,11 +10,11 @@ class FollowController extends Controller
 {
     static public function isFollowing($id)
     {
-        if (
-            Follow::where('follower_id', Auth::user()->id)
-            ->where('following_id', $id)->count() > 0
-        ) {
-            return true;
+        if (Auth::user()) {
+            if (Follow::where('follower_id', Auth::user()->id)
+                ->where('following_id', $id)->count() > 0) {
+                return true;
+            }
         }
 
         return false;
