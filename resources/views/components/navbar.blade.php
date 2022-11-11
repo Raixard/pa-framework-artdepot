@@ -14,9 +14,11 @@
         {{-- Left Group (Desktop) --}}
         <div class="flex space-x-4 items-center">
             {{-- Website Logo --}}
-            <a href="{{ url('/') }}" class="font-bold text-xl select-none md:mr-8">
-                ArtDepot
-            </a>
+            <div class="flex self-center h-8">
+                <a href="{{ url('/') }}" class="flex md:mr-8">
+                    <img src="{{ asset('/img/ui/ArtDepot_LogoFull.png') }}" alt="ArtDepot Logo" class="object-contain">
+                </a>
+            </div>
 
             {{-- Navigation (Desktop) --}}
             <div class="hidden md:flex items-center">

@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Buat Post | ArtDepot
+    Edit Post | ArtDepot
 @endsection
 
 @section('content')

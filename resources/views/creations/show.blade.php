@@ -82,7 +82,7 @@
                 {{-- Creation Poster --}}
                 <div class="flex space-x-4 min-w-0">
                     {{-- Poster Profile Image --}}
-                    <a href="" class="relative flex items-center w-12 h-12 aspect-square rounded-full outline-none">
+                    <a href="{{ route('userShow', $creation->user->username) }}" class="relative flex items-center w-12 h-12 aspect-square rounded-full outline-none">
                         <img src="{{ asset('img/users/' . $creation->user->profile_image) }}" alt=""
                             class="absolute object-cover rounded-full">
                     </a>
