@@ -25,7 +25,7 @@
                 <a href="{{ url('/') }}"
                     class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
-                    Jelajahi
+                    Jelajah
                 </a>
                 @if (Auth::user())
                     <a href="{{ route('creationFollowed') }}"

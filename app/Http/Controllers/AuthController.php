@@ -43,7 +43,6 @@ class AuthController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => 'User',
                 'profile_image' => 'user-default.jpg',
             ]);
 
@@ -64,12 +63,7 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($data)) {
-            $auth = Auth::user()->role;
-            if ($auth == 'User') {
-                return redirect('/')->with('role','user');
-            }else{
-                return redirect('home-admin')->with('role','admin');
-            }
+            return redirect('/');
             
         } else {
             session()->flash('error', 'Email atau password salah!');

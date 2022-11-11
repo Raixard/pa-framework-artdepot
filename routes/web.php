@@ -27,10 +27,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/home-admin', function () {
-    return view('admin.home');
-});
-
 Route::get('/followed', function () {
     $followedId = Follow::where('follower_id', Auth::user()->id)->pluck('following_id');
 
