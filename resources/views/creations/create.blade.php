@@ -31,21 +31,24 @@
                 {{-- Image Input --}}
                 <div class="flex flex-col w-full space-y-3 mb-6">
                     <label for="create-image" class="font-medium">File Gambar*</label>
-                    <input type="file" name="image" id="create-image" required>
+                    <input type="file" name="image" id="create-image" accept=".jpg, .jpeg, .png" required>
+                    <span class="font-light italic text-sm">
+                        Gambar dengan dimensi melebihi 1280x1280 akan otomatis diperkecil
+                    </span>
                 </div>
 
                 {{-- Title Input --}}
                 <div class="flex flex-col w-full space-y-3 mb-6">
-                    <label for="create-title" class="font-medium">Judul</label>
+                    <label for="create-title" class="font-medium">Judul*</label>
                     <input type="text" placeholder="Masukkan judul karya..." name="title" id="create-title"
                         maxlength="64" required class="p-3 rounded-lg text-polar0 outline-none">
                 </div>
 
                 {{-- Description Input --}}
                 <div class="flex flex-col w-full space-y-3 mb-6">
-                    <label for="create-description" class="font-medium">Deskripsi</label>
-                    <textarea type="text" placeholder="Masukkan deskripsi karya..." name="description" id="create-description" rows="6" required
-                        class="p-3 rounded-lg text-polar0 outline-none resize-none"></textarea>
+                    <label for="create-description" class="font-medium">Deskripsi*</label>
+                    <textarea type="text" placeholder="Masukkan deskripsi karya..." name="description" id="create-description"
+                        rows="6" required class="p-3 rounded-lg text-polar0 outline-none resize-none"></textarea>
                 </div>
 
                 {{-- Keywords Input --}}

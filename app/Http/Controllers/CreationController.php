@@ -6,6 +6,7 @@ use App\Models\Creation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class CreationController extends Controller
 {
@@ -54,10 +55,22 @@ class CreationController extends Controller
             $creation->user_id = Auth::user()->id;
             $creation->save();
 
+            
+
             // Save image and image url
-            $file = $request->file('image');
-            $filename = $creation->id . '-' . Auth::user()->username . '-' . $file->getClientOriginalName();
-            $file->move(public_path('img/creations'), $filename);
+            $image = $request->file('image');
+            $filename = $creation->id . '-' . Auth::user()->username . '-' . $image->getClientOriginalName();
+            $image_resized = Image::make($image->getRealPath());
+            if (
+                $image_resized->width() > 1280 ||
+                $image_resized->height() > 1280
+            ) {
+                $image_resized->resize(1280, 1280, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+            }
+            $image_resized->save(public_path('img/creations/') . $filename);
             $creation->image_url = $filename;
             $creation->save();
         }
@@ -103,8 +116,18 @@ class CreationController extends Controller
 
         // Overwrite image if user upload new image
         if ($request->file('image')) {
-            $file = $request->file('image');
-            $file->move(public_path('img/creations'), $creation->image_url);
+            $image = $request->file('image');
+            $image_resized = Image::make($image->getRealPath());
+            if (
+                $image_resized->width() > 1280 ||
+                $image_resized->height() > 1280
+            ) {
+                $image_resized->resize(1280, 1280, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+            }
+            $image_resized->save(public_path('img/creations/') . $creation->image_url);
         }
 
         // Redirect
