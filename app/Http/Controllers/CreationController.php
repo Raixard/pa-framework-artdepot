@@ -69,8 +69,11 @@ class CreationController extends Controller
     // Viewing creation edit page
     public function edit($id)
     {
-        // If the creation is not user's, redirect
-        if (Auth::user()->id != Creation::where('id', $id)->first()->user_id) {
+        // If the creation is not user's or the user is not admin, redirect
+        if (
+            Auth::user()->id != Creation::where('id', $id)->first()->user_id &&
+            Auth::user()->role != 'admin'
+        ) {
             return redirect('/');
         }
 

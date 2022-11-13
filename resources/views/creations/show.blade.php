@@ -20,7 +20,7 @@
             <div class="flex justify-center space-x-3">
                 @if (Auth::user())
                     {{-- Edit Button --}}
-                    @if (Auth::user()->id == $creation->user_id)
+                    @if (Auth::user()->id == $creation->user_id || Auth::user()->role == 'admin')
                         <a href="{{ route('creationEdit', $creation->id) }}"
                             class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2">
                             <i class="bi bi-pencil mr-2"></i>

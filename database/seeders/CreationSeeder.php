@@ -18,7 +18,7 @@ class CreationSeeder extends Seeder
         $creations = [
             [
                 'id' => '1',
-                'user_id' => '1',
+                'user_id' => '2',
                 'image_url' => '1-rubahganteng-2022-07-23-TestChibi.jpg',
                 'title' => 'Chibi Raikhárd',
                 'description' => 'Nyoba² chibi:> Art by me',
@@ -26,7 +26,7 @@ class CreationSeeder extends Seeder
             ],
             [
                 'id' => '2',
-                'user_id' => '1',
+                'user_id' => '2',
                 'image_url' => '2-rubahganteng-2022-10-19-Raikhard.jpg',
                 'title' => 'Berpayung (?)',
                 'description' => 'Ceritanya lagi berpayung. N\'tahlah, gatau mo kasih deskripsi apa:v',

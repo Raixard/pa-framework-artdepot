@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('creation_id')->constrained('creations')->cascadeOnDelete();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->text('content')->nullable();
+            $table->string('deleted_by')->nullable();
             $table->timestamps();
         });
     }

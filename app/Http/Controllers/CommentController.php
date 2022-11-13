@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Creation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,11 +37,23 @@ class CommentController extends Controller
         // Find comment by id
         $comment = Comment::where('id', $comment_id)->firstOrFail();
 
-        // Nullify id and content
-        $comment->update([
-            'user_id' => null,
-            'content' => null,
-        ]);
+        // Find creation by id
+        $creation = Creation::where('id', $id)->firstOrFail();
+
+        // Determine who deleted this comment
+        if (Auth::user()->id == $creation->user_id && Auth::user()->id != $comment->user_id) {
+            $deletedBy = 'poster';
+        } else if (Auth::user()->role == 'admin') {
+            $deletedBy = 'admin';
+        } else {
+            $deletedBy = 'user';
+        }
+
+        // Nullify id and content, and determine who deleted it
+        $comment->user_id = null;
+        $comment->content = null;
+        $comment->deleted_by = $deletedBy;
+        $comment->save();
 
         // Redirect
         return redirect()->route('creationShow', $id);
