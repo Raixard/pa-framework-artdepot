@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CreationController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\UserController;
 use App\Models\Creation;
 use App\Models\Follow;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home', [
         'creations' => Creation::all()->sortByDesc('id'),
+        'title' => 'explore',
     ]);
 });
 
@@ -32,6 +34,7 @@ Route::get('/followed', function () {
 
     return view('home', [
         'creations' => Creation::whereIn('user_id', $followedId)->get()->sortByDesc('id'),
+        'title' => 'followed',
     ]);
 })->name('creationFollowed')->middleware('auth');
 
@@ -65,9 +68,13 @@ Route::controller(FollowController::class)->group(function () {
 });
 
 // User Controller
-Route::controller(CreationController::class)->group(function () {
+Route::controller(UserController::class)->group(function () {
     Route::get('/user/{username}', 'show')->name('userShow');
     Route::get('/user/{username}/liked', 'showLiked')->name('userShowLiked');
+    Route::get('/user/{username}/followers', 'showFollowers')->name('userShowFollowers');
+    Route::get('/user/{username}/followings', 'showFollowings')->name('userShowFollowings');
+    Route::get('/user/{username}/edit', 'edit')->name('userEdit')->middleware('auth');
+    Route::put('/user/{username}/update', 'update')->name('userUpdate')->middleware('auth');
 });
 
 // Authentication

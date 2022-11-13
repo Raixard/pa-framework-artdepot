@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('profile_image');
+            $table->string('role')->default('user');
+            $table->text('biography')->default('Halo, saya menggunakan ArtDepot');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default('user');
             $table->rememberToken();
             $table->timestamps();
         });

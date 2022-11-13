@@ -44,9 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function creation()
+    public function creations()
     {
-        return $this->hasMany(Creation::class);
+        return $this->hasMany(Creation::class)->orderByDesc('id');
     }
 
     public function comments()
@@ -60,12 +60,20 @@ class User extends Authenticatable
     }
 
     // users that are followed by this user
-    public function following() {
-        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+    public function following()
+    {
+        return $this
+            ->belongsToMany(User::class, 'follows', 'follower_id', 'following_id')
+            ->withPivot('created_at')
+            ->orderByPivot('created_at', 'desc');
     }
-    
+
     // users that follow this user
-    public function followers() {
-        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+    public function followers()
+    {
+        return $this
+            ->belongsToMany(User::class, 'follows', 'following_id', 'follower_id')
+            ->withPivot('created_at')
+            ->orderByPivot('created_at', 'desc');
     }
 }

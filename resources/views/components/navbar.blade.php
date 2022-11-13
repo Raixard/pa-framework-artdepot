@@ -90,16 +90,23 @@
                                 tabindex="0">
                                 Profil
                             </a>
-                            <a href=""
+                            <a href="{{ route('userEdit', Auth::user()->username) }}"
                                 class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                                 tabindex="0">
                                 Edit Profil
                             </a>
-                            <a href=""
+                            <a href="{{ route('userShowLiked', Auth::user()->username) }}"
                                 class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                                 tabindex="0">
                                 Karya Disukai
                             </a>
+                            @if (Auth::user()->role == 'admin')
+                                <a href=""
+                                    class="opacity-70 px-4 py-2 font-medium whitespace-nowrap transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                                    tabindex="0">
+                                    Menu Admin
+                                </a>
+                            @endif
                             <hr class="my-2">
                             <a href="{{ route('logout') }}"
                                 class="opacity-70 px-4 py-2 font-medium transition hover:opacity-100 hover:bg-aurora0 focus:opacity-100 focus:bg-aurora0"
@@ -126,7 +133,7 @@
             {{-- Create Post Button (Desktop) --}}
             @if (Auth::user())
                 <a href="{{ route('creationCreate') }}"
-                    class="hidden bg-frost3 px-3 py-2 rounded-lg font-semibold transition-colors md:block hover:bg-frost2">
+                    class="hidden bg-frost3 px-3 py-2 rounded-lg font-medium transition-colors md:block hover:bg-frost2">
                     <i class="bi-plus-lg mr-2"></i>Buat Post
                 </a>
             @endif
@@ -168,16 +175,23 @@
                     tabindex="0">
                     Profil
                 </a>
-                <a href=""
+                <a href="{{ route('userEdit', Auth::user()->username) }}"
                     class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Edit Profil
                 </a>
-                <a href=""
+                <a href="{{ route('userShowLiked', Auth::user()->username) }}"
                     class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Karya Disukai
                 </a>
+                @if (Auth::user()->role == 'admin')
+                    <a href=""
+                        class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
+                        tabindex="0">
+                        Menu Admin
+                    </a>
+                @endif
                 <hr class="my-2 w-full">
                 <a href="{{ route('logout') }}"
                     class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:bg-aurora0 focus:opacity-100 focus:bg-aurora0"
@@ -214,7 +228,7 @@
                     placeholder="Cari karya..." name="q">
             </form>
             {{-- Mobile Navigation --}}
-            <a href=""
+            <a href="{{ url('/') }}"
                 class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                 tabindex="0">
                 Jelajahi
