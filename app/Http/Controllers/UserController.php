@@ -8,6 +8,7 @@ use App\Models\Like;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redis;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class UserController extends Controller

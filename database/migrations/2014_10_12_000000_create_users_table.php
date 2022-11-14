@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('biography')->default('Halo, saya menggunakan ArtDepot');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('status')->default('aktif');
             $table->rememberToken();
             $table->timestamps();
         });

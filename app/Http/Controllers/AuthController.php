@@ -63,8 +63,7 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($data)) {
-            return redirect('/');
-            
+            return redirect('/');                
         } else {
             session()->flash('error', 'Email atau password salah!');
             return redirect()->route('login');
