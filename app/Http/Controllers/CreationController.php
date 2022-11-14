@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Creation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,7 @@ class CreationController extends Controller
     // Viewing creation creation page
     public function create()
     {
-        return view('creations.create');
+        return view('creations.create',['categories' => Category::all()]);
     }
 
     // Store creation to database
@@ -39,6 +40,7 @@ class CreationController extends Controller
             'image' => 'required|image|mimes:jpeg,jpg,png,gif',
             'title' => 'required|max:64',
             'description' => 'required',
+            'categories' => 'required',
             'keywords' => 'nullable',
         ]);
 
@@ -51,6 +53,7 @@ class CreationController extends Controller
             $creation->image_url = '';
             $creation->title = $request->get('title');
             $creation->description = $request->get('description');
+            $creation->category_id = $request->get('categories');
             $creation->keywords = $request->get('keywords') ?? '';
             $creation->user_id = Auth::user()->id;
             $creation->save();
@@ -104,6 +107,7 @@ class CreationController extends Controller
             'image' => 'nullable|image|mimes:jpeg,jpg,png,gif',
             'title' => 'required|max:64',
             'description' => 'required',
+            'categories' => 'required',
             'keywords' => 'nullable',
         ]);
 
@@ -111,6 +115,7 @@ class CreationController extends Controller
         $creation = Creation::findOrFail($id);
         $creation->title = $request->get('title');
         $creation->description = $request->get('description');
+        $creation->category_id = $request->get('categories');
         $creation->keywords = $request->get('keywords') ?? '';
         $creation->save();
 
