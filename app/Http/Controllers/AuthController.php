@@ -63,6 +63,11 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($data)) {
+            if(Auth::user()->status == 'ban'){
+                Auth::logout();
+                session()->flash('error', 'Selamat Akun Anda Diban');
+                return redirect()->route('login');
+            }
             return redirect('/');                
         } else {
             session()->flash('error', 'Email atau password salah!');
