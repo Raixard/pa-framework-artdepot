@@ -58,6 +58,18 @@
                         class="p-3 rounded-lg text-polar0 outline-none resize-none">{{ $creation->description }}</textarea>
                 </div>
 
+                {{-- Categories Input --}}
+                <div class="flex flex-col w-full space-y-3 mb-6">
+                    <label for="create-description" class="font-medium">Kategori*</label>
+                    <select name="categories" id="create-categories"
+                        required class="p-3 rounded-lg text-polar0 outline-none resize-none">
+                        <option value="">Pilih Kategori</option>
+                        @foreach ($categories as $categ) 
+                            <option value="{{$categ->id}}" {{$creation->category_id == $categ->id ? 'selected':''}}>{{$categ->category_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 {{-- Keywords Input --}}
                 <div class="flex flex-col w-full space-y-3 mb-6">
                     <label for="create-keywords" class="font-medium">Keywords</label>

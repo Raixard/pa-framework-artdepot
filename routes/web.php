@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CreationController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
 use App\Models\Creation;
 use App\Models\Follow;
 use Illuminate\Support\Facades\Auth;
@@ -84,4 +86,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'registerView')->name('register');
     Route::post('/register-action', 'actionRegister')->name('actionRegister');
     Route::get('/logout', 'actionLogout')->name('logout');
+});
+
+// Categories
+Route::controller(CategoryController::class)->group(function(){
+    Route::get('/category', 'index')->name('category');
 });

@@ -96,6 +96,7 @@ class CreationController extends Controller
         // Redirect
         return view('creations.edit', [
             'creation' => Creation::all()->where('id', $id)->first(),
+            'categories' => Category::all()
         ]);
     }
 
@@ -155,5 +156,9 @@ class CreationController extends Controller
 
         // Redirect
         return redirect('/');
+    }
+
+    public function categories(){
+        
     }
 }
