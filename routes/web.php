@@ -80,4 +80,5 @@ Route::controller(AuthController::class)->group(function () {
 // Categories
 Route::controller(CategoryController::class)->group(function(){
     Route::get('/category', 'index')->name('category');
+    Route::get('/category/show/{id}', 'show')->name('showCategory');
 });

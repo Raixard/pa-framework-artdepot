@@ -16,5 +16,11 @@ class CategoryController extends Controller
         ]);
     }
 
-    
+    public function show($id){
+        return view('categories.show', [
+            'creations' => Creation::all()->where('category_id', $id),
+            'category' => Category::where('id',$id)->first()
+        ]);
+    }
+
 }
