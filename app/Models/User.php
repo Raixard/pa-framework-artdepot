@@ -76,4 +76,8 @@ class User extends Authenticatable
             ->withPivot('created_at')
             ->orderByPivot('created_at', 'desc');
     }
+    
+    public function report(){
+        return $this->hasMany(Report::class);
+    }
 }
