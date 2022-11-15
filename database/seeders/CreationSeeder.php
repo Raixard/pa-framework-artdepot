@@ -22,7 +22,7 @@ class CreationSeeder extends Seeder
                 'image_url' => '1-rubahganteng-2022-07-23-TestChibi.jpg',
                 'title' => 'Chibi Raikhárd',
                 'description' => 'Nyoba² chibi:> Art by me',
-                'keywords' => 'furry; anthro; Raikhárd; chibi; rubah; Sableye; pokemon',
+                'keywords' => 'furry anthro Raikhárd chibi rubah Sableye pokemon',
             ],
             [
                 'id' => '2',
@@ -30,7 +30,7 @@ class CreationSeeder extends Seeder
                 'image_url' => '2-rubahganteng-2022-10-19-Raikhard.jpg',
                 'title' => 'Berpayung (?)',
                 'description' => 'Ceritanya lagi berpayung. N\'tahlah, gatau mo kasih deskripsi apa:v',
-                'keywords' => 'furry; anthro; Raikhárd; rubah',
+                'keywords' => 'furry anthro Raikhárd rubah',
             ],
         ];
 

@@ -28,7 +28,7 @@
                     Jelajah
                 </a>
                 @if (Auth::user())
-                    <a href="{{ route('creationFollowed') }}"
+                    <a href="{{ route('creationShowFollowed') }}"
                         class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                         tabindex="0">
                         Diikuti
@@ -50,13 +50,13 @@
                 </div>
 
                 {{-- Search Bar --}}
-                <form action="/" method="GET" class="hidden relative ml-4 lg:block">
+                <form action="{{ route('creationSearch') }}" method="GET" class="hidden relative ml-4 lg:block">
                     <div class="pointer-events-none absolute z-10 inset-y-0 left-0 flex items-center pl-2 transition">
                         <span class="bi-search text-polar1"></span>
                     </div>
                     <input type="search"
                         class="block bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg outline-none transition hover:opacity-100 focus:opacity-100"
-                        placeholder="Cari karya..." name="q">
+                        placeholder="Cari karya..." name="q" value="{{ $_GET['q'] ?? '' }}">
                 </form>
             </div>
         </div>
@@ -143,13 +143,13 @@
     {{-- Search Menu (Large) --}}
     <div class="hidden md:block lg:hidden">
         <div id="search-bar-large" class="flex hidden p-4 bg-polar0 origin-top scale-y-0 transition-transform">
-            <form action="/" method="GET" class="relative w-full">
+            <form action="{{ route('creationSearch') }}" method="GET" class="relative w-full">
                 <div class="pointer-events-none absolute z-10 inset-y-0 left-0 flex items-center pl-2 transition">
                     <span class="bi-search text-polar1"></span>
                 </div>
                 <input type="search"
                     class="block w-full bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg outline-none transition hover:opacity-100 focus:opacity-100"
-                    placeholder="Cari karya..." name="q">
+                    placeholder="Cari karya..." name="q" value="{{ $_GET['q'] ?? '' }}">
             </form>
         </div>
     </div>
@@ -219,13 +219,13 @@
         <div id="burger-menu"
             class="flex hidden absolute drop-shadow-md bg-polar0 w-full max-h-almostscreen py-4 flex-col items-center origin-top scale-y-0 overflow-y-auto transition-transform">
             {{-- Search Bar (Mobile) --}}
-            <form action="/" method="GET" class="relative w-full px-4 mb-4">
+            <form action="{{ route('creationSearch') }}" method="GET" class="relative w-full px-4 mb-4">
                 <div class="pointer-events-none absolute z-10 inset-y-0 left-0 flex items-center pl-6 transition">
                     <span class="bi-search text-polar1"></span>
                 </div>
                 <input type="search"
                     class="block w-full bg-snow2 text-polar1 pl-8 py-2 pr-2 opacity-70 rounded-lg outline-none transition hover:opacity-100 focus:opacity-100"
-                    placeholder="Cari karya..." name="q">
+                    placeholder="Cari karya..." name="q" value="{{ $_GET['q'] ?? '' }}">
             </form>
             {{-- Mobile Navigation --}}
             <a href="{{ url('/') }}"
@@ -234,7 +234,7 @@
                 Jelajahi
             </a>
             @if (Auth::user())
-                <a href="{{ route('creationFollowed') }}"
+                <a href="{{ route('creationShowFollowed') }}"
                     class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Diikuti

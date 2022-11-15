@@ -82,7 +82,8 @@
                 {{-- Creation Poster --}}
                 <div class="flex space-x-4 min-w-0">
                     {{-- Poster Profile Image --}}
-                    <a href="{{ route('userShow', $creation->user->username) }}" class="relative flex items-center w-12 h-12 aspect-square rounded-full outline-none">
+                    <a href="{{ route('userShow', $creation->user->username) }}"
+                        class="relative flex items-center w-12 h-12 aspect-square rounded-full outline-none">
                         <img src="{{ asset('img/users/' . $creation->user->profile_image) }}" alt=""
                             class="absolute object-cover rounded-full">
                     </a>
@@ -161,12 +162,12 @@
 
                 {{-- Creation Keywords --}}
                 <div class="flex space-x-2">
-                    @foreach (explode(';', $creation->keywords) as $keyword)
+                    @foreach (explode(' ', $creation->keywords) as $keyword)
                         @if (!empty($keyword))
-                            <span
+                            <a href="{{ route('creationSearch', ['q' => $keyword]) }}"
                                 class="px-3 py-1 bg-polar3/70 rounded-lg cursor-pointer transition-colors hover:bg-polar3">
                                 {{ $keyword }}
-                            </span>
+                            </a>
                         @endif
                     @endforeach
                 </div>
