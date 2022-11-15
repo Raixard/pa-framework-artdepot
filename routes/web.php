@@ -22,24 +22,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home', [
-        'creations' => Creation::all()->sortByDesc('id'),
-        'title' => 'explore',
-    ]);
-});
-
-Route::get('/followed', function () {
-    $followedId = Follow::where('follower_id', Auth::user()->id)->pluck('following_id');
-
-    return view('home', [
-        'creations' => Creation::whereIn('user_id', $followedId)->get()->sortByDesc('id'),
-        'title' => 'followed',
-    ]);
-})->name('creationFollowed')->middleware('auth');
-
 // Creation Controller
 Route::controller(CreationController::class)->group(function () {
+    Route::get('/', 'home');
+
+    Route::get('/followed', 'showFollowed')->name('creationShowFollowed')->middleware('auth');
+    Route::get('/search', 'search')->name('creationSearch')->middleware('auth');
+
     Route::get('/creation/{id}', 'show')->name('creationShow');
     Route::get('/creation/{id}/edit', 'edit')->name('creationEdit')->middleware('auth');
     Route::put('/creation/{id}', 'update')->name('creationUpdate')->middleware('auth');

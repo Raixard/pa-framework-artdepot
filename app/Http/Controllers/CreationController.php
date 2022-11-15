@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Creation;
+use App\Models\Follow;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -11,6 +13,78 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class CreationController extends Controller
 {
+    // Viewing website home page
+    public function home()
+    {
+        return view('home', [
+            'creations' => Creation::all()->sortByDesc('id'),
+            'title' => 'explore',
+        ]);
+    }
+
+    // Visiting search page
+    public function search(Request $request)
+    {
+        // Split search keywords
+        $searchKeywords = explode(' ', $request->get('q'));
+
+        // Redirect if there's no search input
+        if (
+            count($searchKeywords) == 1 &&
+            $searchKeywords[0] == ''
+        ) {
+            return redirect('/');
+        }
+
+        // Parsing the @by:username query
+        $artist = preg_grep('/@by:(\S)+/', $searchKeywords);
+        if ($artist) {
+            $artist = preg_split('/:/', $artist[0]);
+            $artist = User::where('username', $artist[1])->first()->id ?? false;
+
+            // Removing the @by:username query from $searchKeywords
+            $searchKeywords = preg_filter('/^(?!@by:)\S+$/', '$0', $searchKeywords);
+        }
+
+        // Get all creations
+        $result = Creation::get();
+
+        // Filtering creations by search input
+        foreach ($searchKeywords as $keyword) {
+            $result = $result
+                ->toQuery()
+                ->where('keywords', 'like', '% ' . $keyword . ' %')
+                ->orWhere('keywords', 'like', '% ' . $keyword)
+                ->orWhere('keywords', 'like', $keyword . '%')
+                ->orWhere('title', 'like', '%' . $keyword . '%')
+                ->get();
+        }
+
+        // Filter creations by artist (if specified)
+        if ($artist) {
+            $result = $result
+                ->toQuery()
+                ->where('user_id', $artist)
+                ->get();
+        }
+
+        // View the page
+        return view('creations.search', [
+            'creations' => $result,
+        ]);
+    }
+
+    // Viewing followed creations page
+    public function showFollowed()
+    {
+        $followedId = Follow::where('follower_id', Auth::user()->id)->pluck('following_id');
+
+        return view('home', [
+            'creations' => Creation::whereIn('user_id', $followedId)->get()->sortByDesc('id'),
+            'title' => 'followed',
+        ]);
+    }
+
     // Viewing creation detail page
     public function show($id)
     {
@@ -29,7 +103,7 @@ class CreationController extends Controller
     // Viewing creation creation page
     public function create()
     {
-        return view('creations.create',['categories' => Category::all()]);
+        return view('creations.create', ['categories' => Category::all()]);
     }
 
     // Store creation to database
@@ -58,7 +132,7 @@ class CreationController extends Controller
             $creation->user_id = Auth::user()->id;
             $creation->save();
 
-            
+
 
             // Save image and image url
             $image = $request->file('image');

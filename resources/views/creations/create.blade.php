@@ -67,8 +67,7 @@
                     <label for="create-keywords" class="font-medium">Keywords</label>
                     <input type="text" placeholder="Masukkan keywords karya..." name="keywords" id="create-keywords"
                         class="p-3 rounded-lg text-polar0 outline-none">
-                    <span class="font-light italic text-sm">Keywords dipisahkan dengan tanda titik koma atau semikolon
-                        (;)</span>
+                    <span class="font-light italic text-sm">Keywords dipisahkan dengan spasi</span>
                 </div>
 
                 {{-- Post Button --}}
