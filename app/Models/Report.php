@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     use HasFactory;
-    protected $table = ['reports'];
-    protected $fillable =['id_user','report_text'];
+    protected $fillable =['user_id','report_cats_id','report_text'];
     public function user()
     {
         return $this->belongsTo(User::class);

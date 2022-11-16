@@ -18,5 +18,39 @@
                 @include('components.creation-card', ['creation' => $creation])
             @endforeach
         </div>
+        @if (Auth::user())
+            @if (Auth::user()->role == 'user')
+            <hr>
+            @if (session('success'))
+            <div class="bg-aurora3/40 px-3 py-6 w-full rounded-lg">
+                <b>Yeah!</b> {{ session('success') }}
+            </div>
+        @endif
+            <form action="{{route('sendReport')}}" method="POST">
+                @csrf
+                <h2 class="text-xl font-bold">Tempat Laporan</h2>
+                <input type="hidden" name="user" value="{{Auth::user()->id}}">
+                <div class="flex flex-col w-3/4 space-y-3 mb-6">
+                    <label for="report" class="font-medium">Report*</label>
+                    <textarea type="text" placeholder="Berikan Aduan Anda" name="report" id="create-report" rows="2" required
+                        class="p-3 rounded-lg text-polar0 outline-none resize-none"></textarea>
+                </div>
+                <div class="flex flex-col w-3/4 space-y-3 mb-6">
+                    <label for="create-categories" class="font-medium">Jenis Laporan*</label>
+                    <select name="jenis" id="create-categories" required
+                        class="p-3 rounded-lg text-polar0 outline-none resize-none">
+                        <option value="">Pilih Jenis Laporan</option>
+                        @foreach ($jenis as $kategori)
+                            <option value="{{ $kategori->id }}">{{ $kategori->category }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit"
+                    class="py-3 w-1/6 rounded-lg bg-frost3 transition-colors hover:bg-frost2 focus:bg-frost2">
+                    Submit
+                </button>
+            </form>
+            @endif
+        @endif
     </div>
 @endsection

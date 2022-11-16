@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Creation;
 use App\Models\Follow;
+use App\Models\ReportCat;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,7 @@ class CreationController extends Controller
         return view('home', [
             'creations' => Creation::all()->sortByDesc('id'),
             'title' => 'explore',
+            'jenis' => ReportCat::all()
         ]);
     }
 

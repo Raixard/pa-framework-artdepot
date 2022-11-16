@@ -37,7 +37,7 @@ class Creation extends Model
         'user_id',
         'image_url',
         'title',
-        'category',
+        'category_id',
         'description',
         'keywords',
     ];

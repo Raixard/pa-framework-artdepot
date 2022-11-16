@@ -1,15 +1,18 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CreationController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
 use App\Models\Creation;
 use App\Models\Follow;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 
 // Creation Controller
 Route::controller(CreationController::class)->group(function () {
-    Route::get('/', 'home');
+    Route::get('/', 'home')->name('home');
 
     Route::get('/followed', 'showFollowed')->name('creationShowFollowed')->middleware('auth');
     Route::get('/search', 'search')->name('creationSearch')->middleware('auth');
@@ -77,8 +80,18 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/logout', 'actionLogout')->name('logout');
 });
 
-// Categories
+// Categories Controller
 Route::controller(CategoryController::class)->group(function(){
     Route::get('/category', 'index')->name('category');
     Route::get('/category/show/{id}', 'show')->name('showCategory');
+});
+
+Route::controller(AdminController::class)->group(function(){
+    Route::get('/admin/report', 'showReport')->name('report');
+    Route::get('/admin/banned', 'showBanned')->name('banned');
+    Route::get('/admin', 'dashboard')->name('admin');
+});
+
+Route::controller(ReportController::class)->group(function(){
+    Route::post('/report/kirim', 'simpan')->name('sendReport');
 });

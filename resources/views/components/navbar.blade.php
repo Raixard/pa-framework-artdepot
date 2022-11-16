@@ -34,7 +34,7 @@
                         Diikuti
                     </a>
                 @endif
-                <a href="{{ route('category')}}"
+                <a href="{{ route('category') }}"
                     class="opacity-70 px-4 py-2 rounded-lg font-medium transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                     tabindex="0">
                     Kategori
@@ -185,8 +185,9 @@
                     tabindex="0">
                     Karya Disukai
                 </a>
+               
                 @if (Auth::user()->role == 'admin')
-                    <a href=""
+                    <a href="{{ route('admin') }}"
                         class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                         tabindex="0">
                         Menu Admin
@@ -240,7 +241,7 @@
                     Diikuti
                 </a>
             @endif
-            <a href=""
+            <a href="{{ route('category') }}"
                 class="opacity-70 w-full py-4 font-medium text-center text-xl transition hover:opacity-100 hover:text-frost1 hover:bg-gray-800 focus:opacity-100 focus:text-frost1 focus:bg-gray-800"
                 tabindex="0">
                 Kategori

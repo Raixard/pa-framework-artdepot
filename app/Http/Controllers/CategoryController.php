@@ -11,8 +11,18 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        $creationIds = Creation::inRandomOrder()
+        ->select('category_id')
+        ->distinct()
+        ->pluck('category_id');
+
+        $creations = collect();
+        foreach ($creationIds as $creationId) {
+            $creations->push(Creation::where('category_id', $creationId)->first());
+        }
+
         return view('categories.index', [
-            'creations' => Creation::all()->whereNotNull('category_id'),
+            'creations' => $creations,
         ]);
     }
 
