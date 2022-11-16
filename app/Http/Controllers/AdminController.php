@@ -21,18 +21,6 @@ class AdminController extends Controller
         ]);
     }
 
-    public function dashboard(){
-        $creations = Creation::all()->count();
-        $akun = User::all()->where('role','user')->count();
-        $report = Report::all()->count();
-
-        return view('admin.home',[
-            'jumlah_karya' => $creations,
-            'jumlah_akun' => $akun,
-            'jumlah_report' => $report,
-        ]);
-    }
-
     public function simpan(Request $request){
         Report::create([
             'user_id' => $request->user,

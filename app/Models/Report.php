@@ -16,6 +16,6 @@ class Report extends Model
 
     public function reportcat()
     {
-        return $this->belongsTo(ReportCat::class);
+        return $this->belongsTo(ReportCat::class, 'report_cats_id');
     }
 }

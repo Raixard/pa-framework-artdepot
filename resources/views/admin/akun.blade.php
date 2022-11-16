@@ -16,10 +16,10 @@
             <table class="border-separate border-spacing-3 w-4/5 table-auto text-xl">
                 <thead class="bg-slate-400">
                 <tr class="p-5">
-                    <th>No</th>
-                    <th>Username</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                    <th class="p-3">No</th>
+                    <th class="p-3">Username</th>
+                    <th class="p-3">Status</th>
+                    <th class="p-3">Aksi</th>
                 </t>
                 </thead>
                 <tbody class="bg-slate-700">
@@ -27,16 +27,16 @@
                     $i=1
                 @endphp
                 @foreach ($akun as $ban)
-                    <tr class="text-center  border-slate-700">
-                        <td>{{ $i}}</td>
-                        <td>{{ $ban->username}}</td>
-                        <td>{{ $ban->status}}</td>
-                        <td>
+                    <tr class="text-center p-5 border-slate-700">
+                        <td class="p-3">{{ $i}}</td>
+                        <td class="p-3">{{ $ban->username}}</td>
+                        <td class="p-3">{{ $ban->status}}</td>
+                        <td class="p-3">
                         @if ($ban->status == 'ban')
                                 <form action="{{ route('unbannedAkun', $ban->id) }}" method="POST">
                                     @csrf
                                     <button type="submit"
-                                        class="py-1 px-3 border rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-aurora0 focus:bg-aurora0"
+                                        class="bg-blue-400 py-1 px-3 rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-blue-300 focus:bg-blue-300"
                                         tabindex="0">
                                         <i class="bi bi-person-check mr-4"></i>Unbanned
                                     </button>
@@ -45,9 +45,9 @@
                                 <form action="{{ route('bannedAkun', $ban->id) }}" method="POST">
                                     @csrf
                                     <button type="submit"
-                                        class="bg-red-600 py-1 px-3 rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-red-500 focus:bg-red-400"
+                                        class="bg-red-600 py-1 px-3 rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-red-500 focus:bg-red-500"
                                         tabindex="0">
-                                        <i class="bi bi-person-slash mr-4"></i>Banned
+                                        <i class="bi bi-person-x mr-4"></i>Banned
                                     </button>
                                 </form>
                             @endif

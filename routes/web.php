@@ -89,7 +89,6 @@ Route::controller(CategoryController::class)->group(function(){
 Route::controller(AdminController::class)->group(function(){
     Route::get('/admin/report', 'showReport')->name('report');
     Route::get('/admin/akun', 'showAkun')->name('akun');
-    Route::get('/admin', 'dashboard')->name('admin');
     Route::post('/report/kirim', 'simpan')->name('sendReport');
     Route::post('/akun/status/{id}/banned', 'banned')->name('bannedAkun');
     Route::post('/akun/status/{id}/unbanned', 'unbanned')->name('unbannedAkun');
