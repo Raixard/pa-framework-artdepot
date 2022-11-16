@@ -25,7 +25,7 @@
             <div class="bg-aurora3/40 px-3 py-6 w-full rounded-lg">
                 <b>Yeah!</b> {{ session('success') }}
             </div>
-        @endif
+            @endif
             <form action="{{route('sendReport')}}" method="POST">
                 @csrf
                 <h2 class="text-xl font-bold">Tempat Laporan</h2>

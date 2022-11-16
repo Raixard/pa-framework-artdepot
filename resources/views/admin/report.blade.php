@@ -21,6 +21,7 @@
                     <tr>
                         <td>{{ $i}}</td>
                         <td>{{ $rpt->user->username}}</td>
+                        <td>{{ $rpt->reportcar->category}}</td>
                         <td>{{ $rpt->report_text}}</td>
                     </tr>
                     @php

@@ -15,9 +15,9 @@ class AdminController extends Controller
         ]);
     }
 
-    public function showBanned(){
-        return view('admin.ban',[
-            'akun' => User::all(),
+    public function showAkun(){
+        return view('admin.akun',[
+            'akun' => User::all()->where('role','user'),
         ]);
     }
 
@@ -42,5 +42,25 @@ class AdminController extends Controller
 
         session()->flash('success', 'Laporan berhasil dikirim, terima kasih sudah memberikan feedback');
         return redirect()->route('home');
+    }
+
+    public function banned($id){
+        $akun = User::findOrFail($id);
+        $akun->update([
+            'status' => 'ban',
+        ]);
+
+        session()->flash('success', 'Akun telah diban');
+        return redirect()->route('akun');
+    }
+
+    public function unbanned($id){
+        $akun = User::findOrFail($id);
+        $akun->update([
+            'status' => 'aktif',
+        ]);
+
+        session()->flash('success', 'akun telah diunban');
+        return redirect()->route('akun');
     }
 }
