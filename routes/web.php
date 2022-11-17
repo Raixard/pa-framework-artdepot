@@ -80,6 +80,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'registerView')->name('register');
     Route::post('/register-action', 'actionRegister')->name('actionRegister');
     Route::get('/logout', 'actionLogout')->name('logout');
+    Route::post('/change-password','updatePassword')->name('changePassword');
 });
 
 // Categories Controller

@@ -245,7 +245,7 @@ class CreationController extends Controller
         $response = $client->request('GET', $endpoint);
         $data = json_decode($response->getBody(), true);
 
-        return $data;
+        // return $data;
 
         $do = collect($data["data"])->pluck('id');
 

@@ -5,7 +5,20 @@
 @endsection
 
 @section('content')
+    
     <div class="container my-6 mt-20 mx-auto px-6 space-y-6 sm:px-auto">
+        @if (session('error'))
+        <div class="bg-aurora0 px-3 py-6 w-full rounded-lg">
+            <b>Ups!</b> {{ session('error') }}
+        </div>
+        @endif
+
+        {{-- Success Alert --}}
+        @if (session('success'))
+        <div class="bg-aurora3/40 px-3 py-6 w-full rounded-lg">
+            <b>Yeah!</b> {{ session('success') }}
+        </div>
+        @endif
         <h1 class="text-2xl font-bold">
             @if ($title == 'followed')
                 Karya dari Pengguna yang Diikuti
@@ -21,11 +34,6 @@
         @if (Auth::user())
             @if (Auth::user()->role == 'user')
             <hr>
-            @if (session('success'))
-            <div class="bg-aurora3/40 px-3 py-6 w-full rounded-lg">
-                <b>Yeah!</b> {{ session('success') }}
-            </div>
-            @endif
             <form action="{{route('sendReport')}}" method="POST">
                 @csrf
                 <h2 class="text-xl font-bold">Tempat Laporan</h2>

@@ -38,7 +38,7 @@
                                     <button type="submit"
                                         class="bg-blue-400 py-1 px-3 rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-blue-300 focus:bg-blue-300"
                                         tabindex="0">
-                                        <i class="bi bi-person-check mr-4"></i>Unbanned
+                                        <i class="bi bi-person-check mr-4"></i>Unban
                                     </button>
                                 </form>
                             @else
@@ -47,7 +47,7 @@
                                     <button type="submit"
                                         class="bg-red-600 py-1 px-3 rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-red-500 focus:bg-red-500"
                                         tabindex="0">
-                                        <i class="bi bi-person-x mr-4"></i>Banned
+                                        <i class="bi bi-person-x mr-4"></i>Ban
                                     </button>
                                 </form>
                             @endif

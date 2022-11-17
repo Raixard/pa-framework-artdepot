@@ -60,6 +60,30 @@
                     Simpan
                 </button>
             </form>
+            <span class="border w-full"></span>
+            <h2 class="text-center">Ganti Password</h2>
+            <form action="{{ route('changePassword')}}" method="POST" class="w-full">
+                @csrf
+                <input type="hidden" name="id" value="{{Auth::user()->id}}">
+                <div class="flex flex-col w-full space-y-3 mb-6">
+                    <label for="reg-password" class="font-medium">Password</label>
+                    <input type="password" placeholder="Masukkan password baru Anda..." name="password" id="reg-password"
+                        pattern=".{8,64}" required class="p-3 rounded-lg text-polar0 outline-none">
+                        <span class="font-light italic text-sm">Password terdiri dari 8 sampai 64 karakter</span>
+                </div>
+
+                {{-- Confirm Password Input --}}
+                <div class="flex flex-col w-full space-y-3 mb-6">
+                    <label for="reg-confirm-password" class="font-medium">Konfirmasi Password</label>
+                    <input type="password" placeholder="Masukkan kembali password baru Anda..." name="confirm_password"
+                        pattern=".{8,64}" id="reg-confirm-password" required class="p-3 rounded-lg text-polar0 outline-none">
+                </div>
+
+                <button type="submit"
+                    class="py-3 w-full rounded-lg bg-frost3 transition-colors hover:bg-frost2 focus:bg-frost2">
+                    Ganti Password
+                </button>
+            </form>
         </div>
 
         {{-- Spacer --}}

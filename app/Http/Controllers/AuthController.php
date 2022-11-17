@@ -82,4 +82,25 @@ class AuthController extends Controller
         session()->flash('success', 'Berhasil keluar');
         return redirect()->route('login');
     }
+
+    public function updatePassword(Request $request){
+
+        if ($request->password == $request->confirm_password) {
+            $id = $request->id;
+            $user = User::findOrFail($id);
+            $request->validate([
+                'password' => ['required', 'unique:users', 'min:8', 'max:64'],
+            ]);
+
+            $user->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+            session()->flash('success', 'Berhasil Mengganti Password.');
+            return redirect()->route('home');
+        } else {
+            session()->flash('error', 'Password dan konfirmasi password Anda berbeda!');
+            return redirect()->route('home');
+        }
+    }
 }
