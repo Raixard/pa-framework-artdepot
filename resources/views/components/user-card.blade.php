@@ -64,7 +64,7 @@
             <span>Komentar Didapat</span>
         </div>
         <div class="flex flex-col font-medium">
-            <span>{{ $creations->count() }}</span>
+            <span>{{ count($creations) }}</span>
             <span>{{ $likesReceived }}</span>
             <span>{{ $commentsReceived }}</span>
         </div>

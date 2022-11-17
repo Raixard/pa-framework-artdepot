@@ -19,6 +19,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(APIController::class)->group(function(){
-    Route::get('/creations','getCreations')->name('getCreations');
+Route::controller(APIController::class)->group(function () {
+    Route::get('/creations/user/{userId}', 'getCreations');
+    Route::get('/creations/user/{userId}/followed', 'getFollowedCreations');
+    Route::get('/creations/user/{userId}/liked', 'getLikedCreations');
+    Route::get('/creations/user/{userId}/{random}', 'getCreations');
+    Route::get('/creations/user/{userId}/{random}/not/{creationId}', 'getCreations');
+
+    Route::get('/creations/search/{q}', 'getSearchedCreations');
+    
+    Route::get('/creations', 'getCreations');
+
+    Route::get('/creation/{id}', 'getCreation');
 });

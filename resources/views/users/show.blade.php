@@ -37,7 +37,7 @@
             {{-- Content --}}
             @if ($purpose == 'gallery')
                 {{-- Creation Gallery --}}
-                @if ($creations->count() > 0)
+                @if (count($creations) > 0)
                     <div
                         class="grid gap-x-6 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
                         @foreach ($creations as $creation)
@@ -54,7 +54,7 @@
                 @endif
             @elseif ($purpose == 'liked')
                 {{-- Liked Creations --}}
-                @if ($likedCreations->count() > 0)
+                @if (count($likedCreations) > 0)
                     <div
                         class="grid gap-x-6 gap-y-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
                         @foreach ($likedCreations as $creation)

@@ -19,58 +19,27 @@ class CreationController extends Controller
     // Viewing website home page
     public function home()
     {
+        $endpoint = env('BASE_ENV') . '/api/creations';
+
+        $client = new Client();
+        $response = $client->request('GET', $endpoint);
+        $data = json_decode($response->getBody(), true);
+
         return view('home', [
-            'creations' => Creation::all()->sortByDesc('id'),
+            'creations' => $data['data'],
             'title' => 'explore',
-            'jenis' => ReportCat::all()
+            'jenis' => ReportCat::all(),
         ]);
     }
 
     // Visiting search page
     public function search(Request $request)
     {
-        // Split search keywords
-        $searchKeywords = explode(' ', $request->get('q'));
+        $endpoint = env('BASE_ENV') . '/api/creations/search/' . $request->get('q');
 
-        // Redirect if there's no search input
-        if (
-            count($searchKeywords) == 1 &&
-            $searchKeywords[0] == ''
-        ) {
-            return redirect('/');
-        }
-
-        // Parsing the @by:username query
-        $artist = preg_grep('/@by:(\S)+/', $searchKeywords);
-        if ($artist) {
-            $artist = preg_split('/:/', $artist[0]);
-            $artist = User::where('username', $artist[1])->first()->id ?? false;
-
-            // Removing the @by:username query from $searchKeywords
-            $searchKeywords = preg_filter('/^(?!@by:)\S+$/', '$0', $searchKeywords);
-        }
-
-        // Get all creations
-        $result = Creation::get();
-
-        // Filtering creations by search input
-        foreach ($searchKeywords as $keyword) {
-            $result = $result
-                ->toQuery()
-                ->where('keywords', 'like', '% ' . $keyword . ' %')
-                ->orWhere('keywords', 'like', '% ' . $keyword)
-                ->orWhere('keywords', 'like', $keyword . '%')
-                ->orWhere('title', 'like', '%' . $keyword . '%')
-                ->get();
-        }
-
-        // Filter creations by artist (if specified)
-        if ($artist) {
-            $result = $result
-                ->toQuery()
-                ->where('user_id', $artist)
-                ->get();
-        }
+        $client = new Client();
+        $response = $client->request('GET', $endpoint);
+        $result = json_decode($response->getBody(), true)["data"];
 
         // View the page
         return view('creations.search', [
@@ -81,25 +50,39 @@ class CreationController extends Controller
     // Viewing followed creations page
     public function showFollowed()
     {
-        $followedId = Follow::where('follower_id', Auth::user()->id)->pluck('following_id');
+        $endpoint = env('BASE_ENV') . '/api/creations/user/' . Auth::user()->id . '/followed';
+        $client = new Client();
+        $response = $client->request('GET', $endpoint);
+        $followedCreations = json_decode($response->getBody(), true)["data"];
 
         return view('home', [
-            'creations' => Creation::whereIn('user_id', $followedId)->get()->sortByDesc('id'),
+            'creations' => $followedCreations,
             'title' => 'followed',
+            'jenis' => ReportCat::all(),
         ]);
     }
 
     // Viewing creation detail page
     public function show($id)
     {
-        Creation::findOrFail($id);
-        $posterUserId = Creation::where('id', $id)->first()->user->id;
+        $endpoint = env('BASE_ENV') . '/api/creation/' . $id;
+        $client = new Client();
+        $response = $client->request('GET', $endpoint);
+        $creation = json_decode($response->getBody(), true)["data"];
+
+        // Poster id
+        $posterUserId = $creation["user"]["id"];
         $isFollowingPoster = FollowController::isFollowing($posterUserId);
 
+        // Other by this user
+        $endpoint = env('BASE_ENV') . '/api/creations/user/' . $posterUserId . '/true/not/' . $creation['id'];
+        $client = new Client();
+        $response = $client->request('GET', $endpoint);
+        $otherByThisUser = json_decode($response->getBody(), true)["data"];
+
         return view('creations.show', [
-            'creation' => Creation::where('id', $id)->first(),
-            'otherByThisUser' => Creation::where('user_id', $posterUserId)
-                ->where('id', '!=', $id)->inRandomOrder()->limit(6)->get(),
+            'creation' => $creation,
+            'otherByThisUser' => array_slice($otherByThisUser, 0, 6),
             'isFollowingPoster' => $isFollowingPoster,
         ]);
     }
@@ -135,8 +118,6 @@ class CreationController extends Controller
             $creation->keywords = $request->get('keywords') ?? '';
             $creation->user_id = Auth::user()->id;
             $creation->save();
-
-
 
             // Save image and image url
             $image = $request->file('image');
@@ -236,25 +217,17 @@ class CreationController extends Controller
         return redirect('/');
     }
 
-    public function getDataAPI(){
+    public function getDataAPI()
+    {
         $endpoint = env('BASE_ENV') . '/api/creations';
-        // $endpoint = 'http://localhost:8001/api/creation';
 
         $client = new Client();
-
         $response = $client->request('GET', $endpoint);
         $data = json_decode($response->getBody(), true);
 
-        // return $data;
-
-        $do = collect($data["data"])->pluck('id');
-
-        // return Creation::whereIn('id', $do)->get();
-        // return $do->where('id', 1)->first()["user"]->id;
-
         return view('home', [
-            'creations' => Creation::whereIn('id', $do)->get(),
-            'title' =>'ArtDepot'
+            'creations' => $data['data'],
+            'title' => 'ArtDepot'
         ]);
     }
 }
