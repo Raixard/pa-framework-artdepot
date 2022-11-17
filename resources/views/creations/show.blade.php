@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    {{ $creation->title }} oleh {{ $creation->user->username }} | ArtDepot
+    {{ $creation['title'] }} oleh {{ $creation['user']['username'] }} | ArtDepot
 @endsection
 
 @section('content')
@@ -12,21 +12,21 @@
         <div class="flex flex-col space-y-3 my-3">
             {{-- Creation Image --}}
             <div class="w-full max-w-full max-h-[100vh] flex justify-center">
-                <img src="{{ asset('img/creations/' . $creation->image_url) }}"
-                    alt="{{ $creation->title }} oleh {{ $creation->user->username }}" class="object-contain">
+                <img src="{{ asset('img/creations/' . $creation['image_url']) }}"
+                    alt="{{ $creation['title'] }} oleh {{ $creation['user']['username'] }}" class="object-contain">
             </div>
 
             {{-- Creation Action Buttons --}}
             <div class="flex justify-center space-x-3">
                 @if (Auth::user())
                     {{-- Edit Button --}}
-                    @if (Auth::user()->id == $creation->user_id || Auth::user()->role == 'admin')
-                        <a href="{{ route('creationEdit', $creation->id) }}"
+                    @if (Auth::user()->id == $creation['user_id'] || Auth::user()->role == 'admin')
+                        <a href="{{ route('creationEdit', $creation['id']) }}"
                             class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2">
                             <i class="bi bi-pencil mr-2"></i>
                             Perbarui
                         </a>
-                        <form action="{{ route('creationDestroy', $creation->id) }}" method="POST"
+                        <form action="{{ route('creationDestroy', $creation['id']) }}" method="POST"
                             onsubmit="return confirm('Apakah kamu yakin ingin menghapus post ini? Post yang sudah dihapus tidak dapat dikembalikan lagi!')">
                             @csrf
                             @method('delete')
@@ -40,8 +40,9 @@
                     @endif
 
                     {{-- Like Button --}}
-                    @if ($creation->likes->where('user_id', Auth::user()->id)->count() < 1)
-                        <form action="{{ route('likeStore', $creation->id) }}" method="POST">
+                    {{-- @if ($creation->likes->where('user_id', Auth::user()->id)->count() < 1) --}}
+                    @if (Auth::user()->likes->where('creation_id', $creation['id'])->count() < 1)
+                        <form action="{{ route('likeStore', $creation['id']) }}" method="POST">
                             @csrf
                             <button type="submit"
                                 class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2"
@@ -51,7 +52,7 @@
                             </button>
                         </form>
                     @else
-                        <form action="{{ route('likeDestroy', $creation->id) }}" method="POST">
+                        <form action="{{ route('likeDestroy', $creation['id']) }}" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit"
@@ -65,7 +66,7 @@
                 @endif
 
                 {{-- Download Button --}}
-                <a href="{{ asset('img/creations/' . $creation->image_url) }}"
+                <a href="{{ asset('img/creations/' . $creation['image_url']) }}"
                     class="px-3 py-1 bg-frost3 rounded-lg transition-colors hover:bg-frost2 focus:bg-frost2" tabindex="0">
                     <i class="bi bi-download mr-2"></i>
                     Unduh
@@ -82,9 +83,9 @@
                 {{-- Creation Poster --}}
                 <div class="flex space-x-4 min-w-0">
                     {{-- Poster Profile Image --}}
-                    <a href="{{ route('userShow', $creation->user->username) }}"
+                    <a href="{{ route('userShow', $creation['user']['username']) }}"
                         class="relative flex items-center w-12 h-12 aspect-square rounded-full outline-none">
-                        <img src="{{ asset('img/users/' . $creation->user->profile_image) }}" alt=""
+                        <img src="{{ asset('img/users/' . $creation['user']['profile_image']) }}" alt=""
                             class="absolute object-cover rounded-full">
                     </a>
 
@@ -92,24 +93,24 @@
                     <div class="flex flex-col space-y-1">
                         {{-- Creation Title --}}
                         <h1 class="font-bold text-xl">
-                            {{ $creation->title }}
+                            {{ $creation['title'] }}
                         </h1>
 
                         {{-- Creation Creator Username --}}
                         <div>
                             <span>oleh </span>
-                            <a href="{{ route('userShow', $creation->user->username) }}"
+                            <a href="{{ route('userShow', $creation['user']['username']) }}"
                                 class="font-medium truncate outline-none transition-colors hover:text-frost3 focus:text-frost3"
                                 tabindex="0">
-                                {{ $creation->user->username }}
+                                {{ $creation['user']['username'] }}
                             </a>
                         </div>
 
                         @if (Auth::user())
-                            @if (Auth::user()->id != $creation->user_id)
+                            @if (Auth::user()->id != $creation['user_id'])
                                 {{-- Follow Button --}}
                                 @if ($isFollowingPoster)
-                                    <form action="{{ route('followDestroy', $creation->user_id) }}" method="POST">
+                                    <form action="{{ route('followDestroy', $creation['user_id']) }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button type="submit"
@@ -119,7 +120,7 @@
                                         </button>
                                     </form>
                                 @else
-                                    <form action="{{ route('followStore', $creation->user_id) }}" method="POST">
+                                    <form action="{{ route('followStore', $creation['user_id']) }}" method="POST">
                                         @csrf
                                         <button type="submit"
                                             class="bg-frost3 py-1 px-3 rounded-lg font-medium whitespace-nowrap grow-0 transition-colors hover:bg-frost2 focus:bg-frost2"
@@ -138,17 +139,17 @@
                     <div>
                         <span>Dipublikasikan: </span>
                         <span class="cursor-help underline underline-offset-2 decoration-dotted"
-                            title="{{ $creation->created_at->setTimezone('Asia/Makassar') }}">
-                            {{ $creation->created_at->setTimezone('Asia/Makassar')->diffForHumans() }}
+                            title="{{ \Carbon\Carbon::parse($creation['created_at'])->setTimezone('Asia/Makassar') }}">
+                            {{ \Carbon\Carbon::parse($creation['created_at'])->setTimezone('Asia/Makassar')->diffForHumans() }}
                         </span>
                     </div>
 
-                    @if ($creation->created_at != $creation->updated_at)
+                    @if ($creation['created_at'] != $creation['updated_at'])
                         <div>
                             <span>Diperbarui: </span>
                             <span class="cursor-help underline underline-offset-2 decoration-dotted"
-                                title="{{ $creation->updated_at->setTimezone('Asia/Makassar') }}">
-                                {{ $creation->updated_at->setTimezone('Asia/Makassar')->diffForHumans() }}
+                                title="{{ \Carbon\Carbon::parse($creation['updated_at'])->setTimezone('Asia/Makassar') }}">
+                                {{ \Carbon\Carbon::parse($creation['updated_at'])->setTimezone('Asia/Makassar')->diffForHumans() }}
                             </span>
                         </div>
                     @endif
@@ -156,13 +157,13 @@
 
                 {{-- Like and Comment Counter --}}
                 <div class="flex space-x-4">
-                    <div><i class="bi bi-heart mr-2"></i>{{ $creation->likes->count() }} disukai</div>
-                    <div><i class="bi bi-chat-dots mr-2"></i>{{ $creation->allComments->count() }} komentar</div>
+                    <div><i class="bi bi-heart mr-2"></i>{{ count($creation['likes']) }} disukai</div>
+                    <div><i class="bi bi-chat-dots mr-2"></i>{{ $creation['commentCount'] }} komentar</div>
                 </div>
 
                 {{-- Creation Keywords --}}
                 <div class="flex space-x-2">
-                    @foreach (explode(' ', $creation->keywords) as $keyword)
+                    @foreach (explode(' ', $creation['keywords']) as $keyword)
                         @if (!empty($keyword))
                             <a href="{{ route('creationSearch', ['q' => $keyword]) }}"
                                 class="px-3 py-1 bg-polar3/70 rounded-lg cursor-pointer transition-colors hover:bg-polar3">
@@ -174,25 +175,25 @@
 
                 {{-- Creation Description --}}
                 <p>
-                    {!! nl2br(e($creation->description)) !!}
+                    {!! nl2br(e($creation['description'])) !!}
                 </p>
 
                 <hr>
 
                 {{-- Comments --}}
                 <div>
-                    <h3 class="font-bold mb-6">Komentar ({{ $creation->allComments->count() }})</h3>
+                    <h3 class="font-bold mb-6">Komentar ({{ $creation['commentCount'] }})</h3>
                     @if (Auth::user())
                         @include('components.comment-editor')
                     @endif
                     <div class="mb-6"></div>
-                    @if ($creation->comments->count() > 0)
+                    @if ($creation['commentCount'] > 0)
                         <div class="flex flex-col space-y-3">
-                            @foreach ($creation->comments as $cmt)
+                            @foreach ($creation['comments'] as $cmt)
                                 @include('components.comment', ['comment' => $cmt, 'margin' => false])
                                 @if (Auth::user())
                                     @include('components.comment-editor', [
-                                        'comment_parent_id' => $cmt->id,
+                                        'comment_parent_id' => $cmt['id'],
                                     ])
                                 @endif
                             @endforeach

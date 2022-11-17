@@ -6,6 +6,7 @@ use App\Models\Creation;
 use App\Models\Follow;
 use App\Models\Like;
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redis;
@@ -18,15 +19,19 @@ class UserController extends Controller
     {
         // Currently viewed user
         $viewedUser = User::where('username', $username)->first();
-
+        
         // Viewed user's creations
-        $creations = $viewedUser->creations;
+        // $creations = $viewedUser->creations;
+        $endpoint = env('BASE_ENV') . '/api/creations/user/' . $viewedUser->id;
+        $client = new Client();
+        $response = $client->request('GET', $endpoint);
+        $creations = json_decode($response->getBody(), true)["data"];
 
         // If this is viewed user's liked page
-        $likedCreations = Creation::whereIn(
-            'id',
-            $viewedUser->likes->pluck('creation_id')
-        )->get()->sortByDesc('id');
+        $endpoint = env('BASE_ENV') . '/api/creations/user/' . $viewedUser->id . '/liked';
+        $client = new Client();
+        $response = $client->request('GET', $endpoint);
+        $likedCreations = json_decode($response->getBody(), true)["data"];
 
         // If the logged user is following this user
         $isFollowing = FollowController::isFollowing($viewedUser->id);
@@ -41,8 +46,8 @@ class UserController extends Controller
 
         // Accumulate likes and comments received by viewed user
         foreach ($creations as $creation) {
-            $likesReceived += $creation->likes->count();
-            $commentsReceived += $creation->allComments->count();
+            $likesReceived += count($creation['likes']);
+            $commentsReceived += $creation['commentCount'];
         }
 
         // Show page
