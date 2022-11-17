@@ -7,8 +7,10 @@ use App\Models\Creation;
 use App\Models\Follow;
 use App\Models\ReportCat;
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -234,7 +236,25 @@ class CreationController extends Controller
         return redirect('/');
     }
 
-    public function categories(){
-        
+    public function getDataAPI(){
+        $endpoint = env('BASE_ENV') . '/api/creations';
+        // $endpoint = 'http://localhost:8001/api/creation';
+
+        $client = new Client();
+
+        $response = $client->request('GET', $endpoint);
+        $data = json_decode($response->getBody(), true);
+
+        return $data;
+
+        $do = collect($data["data"])->pluck('id');
+
+        // return Creation::whereIn('id', $do)->get();
+        // return $do->where('id', 1)->first()["user"]->id;
+
+        return view('home', [
+            'creations' => Creation::whereIn('id', $do)->get(),
+            'title' =>'ArtDepot'
+        ]);
     }
 }

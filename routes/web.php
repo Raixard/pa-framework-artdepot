@@ -41,6 +41,8 @@ Route::controller(CreationController::class)->group(function () {
 
     Route::get('/creation-create', 'create')->name('creationCreate')->middleware('auth');
     Route::post('/creation-store', 'store')->name('creationStore')->middleware('auth');
+
+    Route::get('/creations', 'getDataAPI')->name('APIgetData');
 });
 
 // Comment Controller
