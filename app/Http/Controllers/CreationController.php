@@ -86,6 +86,7 @@ class CreationController extends Controller
         return view('home', [
             'creations' => Creation::whereIn('user_id', $followedId)->get()->sortByDesc('id'),
             'title' => 'followed',
+            'jenis' => ReportCat::where('id',1)->get()
         ]);
     }
 

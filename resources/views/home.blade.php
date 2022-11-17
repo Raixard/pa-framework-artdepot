@@ -32,7 +32,7 @@
             @endforeach
         </div>
         @if (Auth::user())
-            @if (Auth::user()->role == 'user')
+            @if (Auth::user()->role == 'user' && $jenis->count() > 1)
             <hr>
             <form action="{{route('sendReport')}}" method="POST">
                 @csrf
