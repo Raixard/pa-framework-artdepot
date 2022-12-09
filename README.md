@@ -24,7 +24,8 @@ npm install
 php artisan key:generate
 php artisan migrate:fresh --seed
 ```
-- Jalankan website dengan
+- Jalankan website dengan dua terminal:
 ```
+php artisan serve --port=8001
 npm run dev
 ```
